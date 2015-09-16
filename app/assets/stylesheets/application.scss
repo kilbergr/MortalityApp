@@ -1,0 +1,66 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+// =======================
+// ==== COLOR PALETTE ====
+// =======================
+// Palette from http://www.colourlovers.com/palette/2841387/Lace
+// agussgut
+
+// blush
+// #FFCFAD RGB 255,207,173
+
+// cream
+// #FFE4B8 RGB 255,228,184
+
+// sand
+// #E6D1B1 RGB 230,209,177
+
+// Nantucket siding
+// #B8AA95 RGB 184,170,149
+
+// Dark Chalkboard
+// #5E5A54 RGB 94,90,84
+
+
+
+@font-face {
+    font-family: 'bebas_neueregular';
+    src: url('fonts/bebasneue-webfont.eot');
+    src: url('fonts/bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/bebasneue-webfont.woff2') format('woff2'),
+         url('fonts/bebasneue-webfont.woff') format('woff'),
+         url('fonts/bebasneue-webfont.ttf') format('truetype'),
+         url('fonts/bebasneue-webfont.svg#bebas_neueregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	background-color: #FFE4B8;
+	color: #5E5A54;
+}
+
+.header {
+	background-color: #B8AA95;
+	color: #5E5A54;
+	font-family: 'bebas_neueregular', sans-serif;
+	font-size: 72px;
+    padding: 5%;  
+    margin-left: -5%;
+    margin-right: -3%;
+    text-align: right;
+}
