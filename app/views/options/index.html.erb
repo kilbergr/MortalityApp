@@ -1,3 +1,21 @@
+<p>We do not know how we will die. </p>
+<p>But we do know how others like you have. Pinpoint a  demographic, geographic, and historic group to visualize their most common causes of death.</p>
+
+<%= form_tag(options_index_path, method: "get") do %>
+  <%= label_tag(:state, "Area of Interest:") %>
+  <%= select_tag(:state, options_for_select([['United States', 1], ['Alabama', 2],['Alaska', 3], ['Arizona',4], ['Arkansas', 5], ['California', 6], ['Colorado', 7],['Hawaii', 15],['New York', 2], ['Virginia', 50]], 1)) %>
+  <%= label_tag(:race, "Race:") %>
+  <%= select_tag(:race, options_for_select([['All', 1], ['White', 2],['Black', 3], ['American Indian/Alaskan Native',4], ['Asian', 5], ['All Others', 6]], 1)) %>
+  <%= label_tag(:ethnicity, "Ethnicity:") %>
+  <%= select_tag(:ethnicity, options_for_select([['All', 1], ['Hispanic', 2],['Non-Hispanic', 3]], 1)) %>
+  <%= label_tag(:sex, "Sex:") %>
+  <%= select_tag(:sex, options_for_select([['All', 1], ['Female', 2],['Male', 3]], 1)) %>
+  <%= label_tag(:age, "Age:") %>
+  <%= select_tag(:age, options_for_select([['All', 1], ['Less than 1 year', 2],['5-9 years old', 3],['10-15 years old', 4],['15-24 years old', 5],['25-34 years old', 6],['35-44 years old', 7],['45-54 years old', 8],['55-64 years old', 9],['65-74 years old', 10],['75-84 years old', 11],['Over 85 years old', 12]], 1)) %>
+  <%= label_tag(:year, "Year:") %>
+  <%= select_tag(:year, options_for_select([['2013', 15],['2012', 14],['2011', 13],['2010', 12],['2009', 11],['2008', 10],['2007', 9],['2006', 8],['2005', 7],['2004', 6],['2003', 5],['2002', 4],['2001', 3], ['2000', 2],['1999', 1]], 15)) %>
+  <%= submit_tag("Search") %>
+<% end %>
 <!-- <% @demographics.each do |demographic| %>
 
 <% end %> -->

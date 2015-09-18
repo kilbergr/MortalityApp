@@ -4,4 +4,8 @@ class Figure < ActiveRecord::Base
 
   belongs_to :death
   belongs_to :demographic
+
+  def self.search(query)
+  	where("demographic like ?", "%#{query}%")
+  end
 end
