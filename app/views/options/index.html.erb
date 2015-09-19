@@ -3,17 +3,17 @@
 
 <%= form_tag(options_index_path, method: "get") do %>
   <%= label_tag(:state, "Area of Interest:") %>
-  <%= select_tag(:state, options_for_select([['United States', 1], ['Alabama', 2],['Alaska', 3], ['Arizona',4], ['Arkansas', 5], ['California', 6], ['Colorado', 7],['Hawaii', 15],['New York', 2], ['Virginia', 50]], 1)) %>
+  <%= select_tag(:state, options_for_select([['United States', 'United States'], ['Northeast', 'Northeast'], ['Midwest', 'Midwest'], ['South', 'South'], ['West', 'West'], ['Alabama', 'Alabama'],['Alaska', 'Alaska'], ['Arizona', 'Arizona'], ['Arkansas', 'Arkansas'], ['California', 'California'], ['Colorado', 'Colorado'],['Hawaii', 'Hawaii'], ['Illinois', 'Illinois'], ['New York', 'New York'], ['Virginia', 'Virginia']], 'United States')) %>
   <%= label_tag(:race, "Race:") %>
-  <%= select_tag(:race, options_for_select([['All', 1], ['White', 2],['Black', 3], ['American Indian/Alaskan Native',4], ['Asian', 5], ['All Others', 6]], 1)) %>
-  <%= label_tag(:ethnicity, "Ethnicity:") %>
-  <%= select_tag(:ethnicity, options_for_select([['All', 1], ['Hispanic', 2],['Non-Hispanic', 3]], 1)) %>
+  <%= select_tag(:race, options_for_select([['All', 'All Races'], ['White', 'White'],['Black', 'Black'], ['American Indian or Alaska Native','Am Indian/Alaska Native'], ['Asian or Pacific Islander', 'Asian/Pac Islander'], ['All Others', 'Other(combined)']], 1)) %>
+  <%= label_tag(:ethnicity, "Hispanic Origin:") %>
+  <%= select_tag(:ethnicity, options_for_select([['All', 'All'], ['Hispanic', 'Hispanic'],['Non-Hispanic', 'Non-Hispanic']], 1)) %>
   <%= label_tag(:sex, "Sex:") %>
-  <%= select_tag(:sex, options_for_select([['All', 1], ['Female', 2],['Male', 3]], 1)) %>
+  <%= select_tag(:sex, options_for_select([['All', 'Both Sexes'], ['Female', 'Females'],['Male', 'Males']], 'Both Sexes')) %>
   <%= label_tag(:age, "Age:") %>
-  <%= select_tag(:age, options_for_select([['All', 1], ['Less than 1 year', 2],['5-9 years old', 3],['10-15 years old', 4],['15-24 years old', 5],['25-34 years old', 6],['35-44 years old', 7],['45-54 years old', 8],['55-64 years old', 9],['65-74 years old', 10],['75-84 years old', 11],['Over 85 years old', 12]], 1)) %>
+  <%= select_tag(:age, options_for_select([['All', 'All Ages'], ['Less than 1 year', '<1'],['5-9 years old', '5-9'],['10-15 years old', '10-14'],['15-24 years old', '15-24'],['25-34 years old', '25-34'],['35-44 years old', '35-44'],['45-54 years old', '45-54'],['55-64 years old', '55-64'],['65-74 years old', '65-74'],['75-84 years old', '75-84'],['Over 85 years old', '85+']], 'All Ages')) %>
   <%= label_tag(:year, "Year:") %>
-  <%= select_tag(:year, options_for_select([['2013', 15],['2012', 14],['2011', 13],['2010', 12],['2009', 11],['2008', 10],['2007', 9],['2006', 8],['2005', 7],['2004', 6],['2003', 5],['2002', 4],['2001', 3], ['2000', 2],['1999', 1]], 15)) %>
+  <%= select_tag(:year, options_for_select([['2013', 2013],['2012', 2012],['2011', 2011],['2010', 2010],['2009', 2009],['2008', 2008],['2007', 2007],['2006', 2006],['2005', 2005],['2004', 2004],['2003', 2003],['2002', 2002],['2001', 2001], ['2000', 2000],['1999', 1999]], 2013)) %>
   <%= submit_tag("Search") %>
 <% end %>
 <!-- <% @demographics.each do |demographic| %>
@@ -37,7 +37,7 @@
 
 d.figures.includes(:death)
 <!-- [#<Figure id: 21, number: 5506, percent: 19.7, death_id: 21, demographic_id: 1>, #<Figure id: 20, number: 230, percent: 0.8, death_id: 20, demographic_id: 1>, #<Figure id: 19, number: 242, percent: 0.9, death_id: 19, demographic_id: 1>, #<Figure id: 18, number: 269, percent: 1.0, death_id: 18, demographic_id: 1>, #<Figure id: 17, number: 283, percent: 1.0, death_id: 17, demographic_id: 1>, #<Figure id: 16, number: 320, percent: 1.1, death_id: 16, demographic_id: 1>, #<Figure id: 15, number: 331, percent: 1.2, death_id: 15, demographic_id: 1>, #<Figure id: 14, number: 336, percent: 1.2, death_id: 14, demographic_id: 1>, #<Figure id: 13, number: 404, percent: 1.4, death_id: 13, demographic_id: 1>, #<Figure id: 12, number: 506, percent: 1.8, death_id: 12, demographic_id: 1>, ...]> -->
-  <div class="col-xs-6">
+ <!--  <div class="col-xs-6">
     <h3>Deaths in This Demographic</h3>
     <%= column_chart @deaths.group(:cause).count %>
-  </div>
+  </div> -->
