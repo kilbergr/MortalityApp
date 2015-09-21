@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- root 'demographics#index'
+ root 'options#show'
   get 'demographics/index' => 'demographics#index', as: "demographics"
 
  
