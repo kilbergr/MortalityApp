@@ -1,5 +1,5 @@
 <p>We do not know how we will die. </p>
-<p>But we do know how others like you have. Pinpoint a  demographic, geographic, and historic group to visualize their most common causes of death.</p>
+<p>But we do know how others have. Pinpoint a  demographic, geographic, and historic group to visualize their most common causes of death.</p>
 
 <%= form_tag(options_index_path, method: "get") do %>
   <%= label_tag(:state, "Area of Interest:") %>
@@ -12,11 +12,45 @@
   <%= select_tag(:sex, options_for_select([['All', 'Both Sexes'], ['Female', 'Females'],['Male', 'Males']], 'Both Sexes')) %>
   <%= label_tag(:age, "Age:") %>
   <%= select_tag(:age, options_for_select([['All', 'All Ages'], ['Less than 1 year', '<1'],['5-9 years old', '5-9'],['10-15 years old', '10-14'],['15-24 years old', '15-24'],['25-34 years old', '25-34'],['35-44 years old', '35-44'],['45-54 years old', '45-54'],['55-64 years old', '55-64'],['65-74 years old', '65-74'],['75-84 years old', '75-84'],['Over 85 years old', '85+']], 'All Ages')) %>
-  <%= label_tag(:year, "Year:") %>
-  <%= select_tag(:year, options_for_select([['2013', 2013],['2012', 2012],['2011', 2011],['2010', 2010],['2009', 2009],['2008', 2008],['2007', 2007],['2006', 2006],['2005', 2005],['2004', 2004],['2003', 2003],['2002', 2002],['2001', 2001], ['2000', 2000],['1999', 1999]], 2013)) %>
+  <!-- <%= label_tag(:year, "Year:") %> -->
+ <!-- If SLIDER, don't include -->
+  <!-- <%= select_tag(:year, options_for_select([['2013', 2013],['2012', 2012],['2011', 2011],['2010', 2010],['2009', 2009],['2008', 2008],['2007', 2007],['2006', 2006],['2005', 2005],['2004', 2004],['2003', 2003],['2002', 2002],['2001', 2001], ['2000', 2000],['1999', 1999]], 2013)) %> -->
   <%= submit_tag("Search") %>
 <% end %>
 <!-- <% @demographics.each do |demographic| %>
+
+<% end %> -->
+<% dem = @demographics[1] %>
+<%= dem.state %>
+
+
+d.figures.includes(:death)
+<!-- [#<Figure id: 21, number: 5506, percent: 19.7, death_id: 21, demographic_id: 1>, #<Figure id: 20, number: 230, percent: 0.8, death_id: 20, demographic_id: 1>, #<Figure id: 19, number: 242, percent: 0.9, death_id: 19, demographic_id: 1>, #<Figure id: 18, number: 269, percent: 1.0, death_id: 18, demographic_id: 1>, #<Figure id: 17, number: 283, percent: 1.0, death_id: 17, demographic_id: 1>, #<Figure id: 16, number: 320, percent: 1.1, death_id: 16, demographic_id: 1>, #<Figure id: 15, number: 331, percent: 1.2, death_id: 15, demographic_id: 1>, #<Figure id: 14, number: 336, percent: 1.2, death_id: 14, demographic_id: 1>, #<Figure id: 13, number: 404, percent: 1.4, death_id: 13, demographic_id: 1>, #<Figure id: 12, number: 506, percent: 1.8, death_id: 12, demographic_id: 1>, ...]> -->
+
+
+
+<!-- <p>We do not know how we will die. </p>
+<p>But we do know how others have. Pinpoint a  demographic, geographic, and historic group to visualize their most common causes of death.</p>
+ Have Done US, NE, S, W, MW, 
+AL, AK, AZ, AR, CA, CO, HI, IL, FL, NY, TX, VA
+
+<%= search_form_for(@search, url: "/search", method: :get) do |f| %>
+
+    <%= f.label :demographic_state_eq, "Area of Interest:" %>
+    <%= f.select :demographic_state_eq, options_for_select([['Select', ''],['United States', 'United States'], ['Northeast', 'Northeast'], ['Midwest', 'Midwest'], ['South', 'South'], ['West', 'West'], ['Alabama', 'Alabama'],['Alaska', 'Alaska'], ['Arizona', 'Arizona'], ['Arkansas', 'Arkansas'], ['California', 'California'], ['Colorado', 'Colorado'],['Hawaii', 'Hawaii'], ['Illinois', 'Illinois'], ['New York', 'New York'], ['Virginia', 'Virginia']], @search.demographic_state_eq) %>
+    <%= f.label :race, "Race:" %>
+    <%= f.select :demographic_race_eq, options_for_select([['Select', ''],['All', 'All Races'], ['White', 'White'],['Black', 'Black'], ['American Indian or Alaska Native','Am Indian/Alaska Native'], ['Asian or Pacific Islander', 'Asian/Pac Islander'], ['All Others', 'Other(combined)']]) %>
+    <%= f.label(:ethnicity, "Hispanic Origin:") %>
+    <%= f.select(:demographic_ethnicity_eq, options_for_select([['Select', ''],['All', 'All'], ['Hispanic', 'Hispanic'],['Non-Hispanic', 'Non-Hispanic']])) %>
+    <%= f.label(:sex, "Sex:") %>
+    <%= f.select(:sex, options_for_select([['Select', ''],['All', 'Both Sexes'], ['Female', 'Females'],['Male', 'Males']])) %>
+    <%= f.label(:age, "Age:") %>
+    <%= f.select(:age, options_for_select([['Select', ''],['All', 'All Ages'], ['Less than 1 year', '<1'],['5-9 years old', '5-9'],['10-15 years old', '10-14'],['15-24 years old', '15-24'],['25-34 years old', '25-34'],['35-44 years old', '35-44'],['45-54 years old', '45-54'],['55-64 years old', '55-64'],['65-74 years old', '65-74'],['75-84 years old', '75-84'],['Over 85 years old', '85+']])) %>
+
+    <%= f.submit("Search") %>
+
+<% end %>
+ <% @demographics.each do |demographic| %>
 
 <% end %> -->
 <% dem = @demographics[1] %>

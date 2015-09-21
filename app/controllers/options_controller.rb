@@ -1,10 +1,12 @@
 class OptionsController < ApplicationController
   def index
-  	@q = Figure.ransack(params[:q])
-  	@figures = @q.result.includes(:deaths)
+  	@search = Demographic.search(params[:q])
+  	@demographics = @search.result
+  	# @q = Figure.ransack(params[:q])
+  	# @figures = @q.result.includes(:deaths)
 
-  	@deaths = Death.all
-  	@demographics = Demographic.all 
+  	# @deaths = Death.all
+  	# @demographics = Demographic.all 
   	
   end
 

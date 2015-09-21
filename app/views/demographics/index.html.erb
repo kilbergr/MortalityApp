@@ -1,0 +1,34 @@
+<h1>Who Are You?</h1>
+<p>Find me in app/views/demographics/index.html.erb</p>
+
+<%=search_form_for @search do |f|  %>
+
+	<div>
+		<%= f.label :state_eq, "State" %>
+		<%= f.select :state_eq, options_for_select(['United States', 'Northeast', 'Midwest', 'South', 'West', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Florida', 'Hawaii', 'Illinois', 'New York', 'Texas', 'Virginia']) %> 
+		<%= f.label :race_eq, "Race:" %>
+    <%= f.select :race_eq, options_for_select([['All', 'All Races'], ['White', 'White'],['Black', 'Black'], ['American Indian or Alaska Native','Am Indian/Alaska Native'], ['Asian or Pacific Islander', 'Asian/Pac Islander'], ['All Others', 'Other(combined)']]) %>
+    <%= f.label(:ethnicity_eq, "Hispanic Origin:") %>
+    <%= f.select(:ethnicity_eq, options_for_select([['All', 'All'], ['Hispanic', 'Hispanic'],['Non-Hispanic', 'Non-Hispanic']])) %>
+    <%= f.label(:sex_eq, "Sex:") %>
+    <%= f.select(:sex_eq, options_for_select([['All', 'Both Sexes'], ['Female', 'Females'],['Male', 'Males']])) %>
+    <%= f.label(:age_eq, "Age:") %>
+    <%= f.select(:age_eq, options_for_select([['All', 'All Ages'], ['Less than 1 year', '<1'],['5-9 years old', '5-9'],['10-15 years old', '10-14'],['15-24 years old', '15-24'],['25-34 years old', '25-34'],['35-44 years old', '35-44'],['45-54 years old', '45-54'],['55-64 years old', '55-64'],['65-74 years old', '65-74'],['75-84 years old', '75-84'],['Over 85 years old', '85+']])) %>
+
+	 	<%= f.submit("Search") %>
+
+	</div>
+	<% end %>
+
+	<h3>CHOSEN DEMOGRAPHIC:</h3>
+	<% @demographics.each do |demographic| %>
+	<div>
+		State Chosen: <%= demographic.state %>
+		Race Chosen: <%= demographic.race%>
+		Sex Chosen: <%= demographic.sex %>
+		Hispanic Origin? <%= demographic.ethnicity %>
+		Age Range Chosen: <%= demographic.age %>
+		Year Chosen: <%= demographic.year %> 
+		<%= demographic.id %>
+</div>
+	<% end %>

@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'd3-rails', '~> 3.5.6'
 # simple charts
 gem 'chartkick'
+# for searching models
+gem 'ransack'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
