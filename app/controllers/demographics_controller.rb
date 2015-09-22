@@ -7,12 +7,12 @@ class DemographicsController < ApplicationController
   	@search.ethnicity_eq = "All" unless params[:q]
   	@demographics = @search.result
   	# remember if you want to have extras re:age, set params[:q]["age_eq"] = "All Ages"
-  	@figures = [];
+  	@figuresYears = [];
   	@deaths = []
 		@search.result.each do |dem|
 			
 			@figures = Figure.find_by_sql "SELECT * FROM figures WHERE demographic_id = " + dem.id.to_s
-			# @figures.push(@figure)
+			@figuresYears.push(@figures)
 		end
 
 
@@ -24,12 +24,8 @@ class DemographicsController < ApplicationController
 		# end
 		gon.demographics = @demographics
 		# gon.deaths = @deaths
-		gon.figures = @figures
-		# binding.pry
-		# respond_to do |format|
-	 #    format.html
-	 #    format.csv { send_data @demographics.to_csv }
-	 # 	end
+		gon.figYears = @figuresYears
+
 	end
 
 		def set_search
