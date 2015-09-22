@@ -45,7 +45,6 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (6.0.2)
-    chartkick (1.2.5)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -61,6 +60,11 @@ GEM
     execjs (2.6.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    gon (6.0.1)
+      actionpack (>= 3.0)
+      json
+      multi_json
+      request_store (>= 1.0)
     i18n (0.7.0)
     jbuilder (2.3.1)
       activesupport (>= 3.0.0, < 5)
@@ -124,6 +128,7 @@ GEM
       polyamorous (~> 1.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    request_store (1.2.0)
     sass (3.4.18)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -164,9 +169,9 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   byebug
-  chartkick
   coffee-rails (~> 4.1.0)
   d3-rails (~> 3.5.6)
+  gon
   jbuilder (~> 2.0)
   jquery-rails
   pg

@@ -3,32 +3,40 @@ class DemographicsController < ApplicationController
  
   def index
   	@search.state_eq = "United States" &&
-  	@search.race_eq = "Black" &&
-  	@search.ethnicity_eq = "Hispanic" unless params[:q]
+  	@search.race_eq = "All" &&
+  	@search.ethnicity_eq = "All" unless params[:q]
   	@demographics = @search.result
-
-  	@figures = []
+  	# remember if you want to have extras re:age, set params[:q]["age_eq"] = "All Ages"
+  	@figures = [];
   	@deaths = []
 		@search.result.each do |dem|
-			dem_id = dem.id 
-			@figure = Figure.find(dem_id)
-			@figures.push(@figure)
+			
+			@figures = Figure.find_by_sql "SELECT * FROM figures WHERE demographic_id = " + dem.id.to_s
+			# @figures.push(@figure)
 		end
 
-		@figures.each do |figure|
-			death_id = figure.death_id
-			@death = Death.find(death_id)
-			@deaths.push(@death)
-		end
 
-  end
-
-	def set_search
-		@search=Demographic.search(params[:q])
+		# @figures.each do |figure|
+		# 	binding.pry
+		# 	death_id = figure.death_id
+		# 	@death = Death.find(death_id)
+		# 	@deaths.push(@death)
+		# end
+		gon.demographics = @demographics
+		# gon.deaths = @deaths
+		gon.figures = @figures
+		# binding.pry
+		# respond_to do |format|
+	 #    format.html
+	 #    format.csv { send_data @demographics.to_csv }
+	 # 	end
 	end
 
-end
+		def set_search
+			@search=Demographic.search(params[:q])
+		end
 
+end
  
   # def index
   # 	@demographics = @search.result
