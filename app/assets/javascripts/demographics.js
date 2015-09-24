@@ -1,48 +1,67 @@
-var loop = function(){
+var getData = function(){
 	var dataset = [];
-// loops add all figure info to dataset grouped by demographic year
+	
+// loops add all figure percentages info to dataset grouped by demographic year
 	for (var i = 0; i < gon.figYears.length; i++){
 		var demGroup = [];
+		var idGroup = [];
 		for (var j = 0; j < gon.figYears[i].length; j++){
-			demGroup.push(gon.figYears[i][j].percent)
+			demGroup.push(gon.figYears[i][j].percent);
 		}
+
 		dataset.push(demGroup);
 	}
 	return dataset;
 }
 
+// var getCause = function(){
+// 	var causeSet = [];
+// // loops add all figure percentages info to dataset grouped by demographic year
+// 	for (var i = 0; i < gon.figYears.length; i++){
+// 		var idGroup = [];
+// 		for (var j = 0; j < gon.figYears[i].length; j++){
+// 			idGroup.push(gon.figYears[i][j].death_id);
+// 		}
+// 		causeSet.push(idGroup);
+// 	}
+// 	return causeSet;
+// }
+
 var ready = function(){
 
 // push all info from the query into the dataset for d3
-	dataset = loop()
+	dataset = getData();
+	// causeSet = getCause();
 
 	for (var k = 0; k < dataset.length; k++){
 		
-			// build a chart for each year
+// build a chart for each year
 		
 		// set margins
-		var margin = {top: 20, right: 20, bottom: 70, left: 40},
+		var margin = {top: 20, right: 20, bottom: 10, left: 40},
     width = 800 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 		padding = 2;
 		
 		var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-
 		var y = d3.scale.linear().range([width, 0]);
-			// for axes
+		
+		// defining axes
 		var xAxis = d3.svg.axis()
 	    .scale(x)
+	    .tickFormat(function(d) {return dataset[d].cause})
 	    .orient("bottom");
 
 		var yAxis = d3.svg.axis()
 		    .scale(y)
 		    .orient("left")
-		    .ticks(10);
-
+		    .ticks(.1, '%');
+		    // above setting of ticks alters which percentages get displayed--don't know why
+		// defining chart
 		var chart = d3.select("#simpleChart").append("svg")
 							.attr("width", width + margin.left + margin.right)
 							.attr("height", height + margin.top + margin.bottom);
-		
+		// appending axes
 		chart.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
@@ -58,11 +77,11 @@ var ready = function(){
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", 10)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("Percentage (%)");
-
+    // adding rectangles
 		chart.selectAll("rect")
 			.data(dataset[k])
 			.enter()
@@ -94,7 +113,7 @@ var ready = function(){
 				return i * (width/dataset[k].length) + (width/dataset[k].length-padding)/2;
 			},
 			y: function(d){
-				return height - (d*10);
+				return height - (d*10) - 2;
 			},
 			"font-family": "sans-serif",
 			"font-size": 12,
@@ -103,7 +122,7 @@ var ready = function(){
 
 	}
 // slider
-	var x = d3.scale.linear()
+var z = d3.scale.linear()
     .domain([1999, 2013])
     .range([0, width])
     .clamp(true);
@@ -118,14 +137,14 @@ sliderHandle.append("div")
     .attr("class", "slider-handle-icon")
 slider.call(d3.behavior.drag()
     .on("dragstart", function() {
-      dispatch.sliderChange(x.invert(d3.mouse(sliderTray.node())[0]));
+      dispatch.sliderChange(z.invert(d3.mouse(sliderTray.node())[0]));
       d3.event.sourceEvent.preventDefault();
     })
     .on("drag", function() {
-      dispatch.sliderChange(x.invert(d3.mouse(sliderTray.node())[0]));
+      dispatch.sliderChange(z.invert(d3.mouse(sliderTray.node())[0]));
     }));
 dispatch.on("sliderChange.slider", function(value) {
-  sliderHandle.style("left", x(value) + "px")
+  sliderHandle.style("left", z(value) + "px")
 });
 	
 };

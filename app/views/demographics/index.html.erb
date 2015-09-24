@@ -1,7 +1,6 @@
-<script src="../javascripts/demographics.js"></script>
-
 <h1>Who Are You?</h1>
-<p>Find me in app/views/demographics/index.html.erb</p>
+<p>We do not know how we will die. </p>
+<p>But we do know how others have. Pinpoint a  demographic, geographic, and historic group to visualize their most common causes of death.</p>
 
 <%=search_form_for @search do |f|  %>
 
@@ -52,8 +51,8 @@
 			ID: <%= figure.id %>
 			<strong>Death ID: <%= figure.death_id %></strong>
 				<% @deaths.each do |death| %>
-					<% if figure.death_id == death.id %>
-						(<%= death.cause %>)
+					<% if figure.death_id == death[0].id %>
+						(<%= death[0].cause %>)
 					<% end %>
 				<% end %>
 			<% end %>

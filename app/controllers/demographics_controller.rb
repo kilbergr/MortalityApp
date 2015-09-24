@@ -14,15 +14,13 @@ class DemographicsController < ApplicationController
 			@figuresYears.push(@figures)
 		end
 
+		@figures.each do |figure|
+			@death = Death.find_by_sql "SELECT * FROM deaths WHERE id = " + figure.death_id.to_s
+			@deaths.push(@death)
+		end
 
-		# @figures.each do |figure|
-		# 	binding.pry
-		# 	death_id = figure.death_id
-		# 	@death = Death.find(death_id)
-		# 	@deaths.push(@death)
-		# end
 		gon.demographics = @demographics
-		# gon.deaths = @deaths
+		gon.deaths = @deaths
 		gon.figYears = @figuresYears
 
 	end
@@ -32,14 +30,3 @@ class DemographicsController < ApplicationController
 		end
 
 end
- 
-  # def index
-  # 	@demographics = @search.result
-  # 	@figures = []
-		# @search.result.each do |dem|
-		# 	dem_id = dem.id 
-		# 	@figure = Figure.find(dem_id)
-		# 	@figures.push(@figure)
-		# end
-		# binding.pry
-  # end
