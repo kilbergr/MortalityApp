@@ -10,7 +10,6 @@ class DemographicsController < ApplicationController
   	@figuresYears = [];
   	@deaths = []
 		@search.result.each do |dem|
-			
 			@figures = Figure.find_by_sql "SELECT * FROM figures WHERE demographic_id = " + dem.id.to_s
 			@figuresYears.push(@figures)
 		end
