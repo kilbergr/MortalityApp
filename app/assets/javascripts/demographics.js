@@ -14,24 +14,24 @@ var getData = function(){
 	return dataset;
 }
 
-// var getCause = function(){
-// 	var causeSet = [];
-// // loops add all figure percentages info to dataset grouped by demographic year
-// 	for (var i = 0; i < gon.figYears.length; i++){
-// 		var idGroup = [];
-// 		for (var j = 0; j < gon.figYears[i].length; j++){
-// 			idGroup.push(gon.figYears[i][j].death_id);
-// 		}
-// 		causeSet.push(idGroup);
-// 	}
-// 	return causeSet;
-// }
+var getCause = function(){
+	var causeSet = [];
+// loops add all figure percentages info to dataset grouped by demographic year
+	for (var i = 0; i < gon.figYears.length; i++){
+		var idGroup = [];
+		for (var j = 0; j < gon.figYears[i].length; j++){
+			idGroup.push(gon.figYears[i][j].death_id);
+		}
+		causeSet.push(idGroup);
+	}
+	return causeSet;
+}
 
 var ready = function(){
 
 // push all info from the query into the dataset for d3
 	dataset = getData();
-	// causeSet = getCause();
+	causeSet = getCause();
 
 	for (var k = 0; k < dataset.length; k++){
 		
