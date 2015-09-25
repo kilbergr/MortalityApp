@@ -14,17 +14,17 @@ var getData = function(){
 
 $(document).on('ready page:load', function () {
 dataset = getData();
-   
+
   var svg = d3.select("svg");
- // debugger;
+  debugger;
   var circle = svg.selectAll(".circle")
-    .data(dataset[2]);
+    .data(dataset[0]);
 
 
   circle.exit().remove();
 
   circle.enter().append("circle")
-      .attr("r", (function(d) {return d*5}))
+      .attr("r", (function(d) {return d*3}))
       .style("fill", "#FFCFAD")
       .style("stroke", "#B8AA95")
       .style("opacity", .5);
@@ -32,5 +32,8 @@ dataset = getData();
   circle
       .attr("cx", (function(d) {return d*20}))
       .attr("cy", (function(d) {return 1/d*200}));
-
+      
+  circle.append("text")
+      .attr("class", "title")
+      .text("Top Causes of Death"); 
 });

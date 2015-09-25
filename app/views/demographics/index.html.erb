@@ -1,7 +1,46 @@
-<h1>Who Are You? How Will This End?</h1>
+<h1>How Will This End?</h1>
 <p>We do not know how we will die. </p>
 <p>But we do know how others have. Pinpoint a  demographic, geographic, and historic group to visualize their most common causes of death.</p>
+<h4>Top Causes of Death for  
+<% unless @demographics[0] == nil %>
+		for
+	<% if @demographics[0].race == "All Races" %>
+	<%= " all races of" %>
+	<% else %>
+	<%= @demographics[0].race  %> 
+	<% end %>
+
+	<% if @demographics[0].ethnicity == "All" %>
+	<%= "Hispanic and Non-Hispanic" %>
+	<% else %>
+	<%= @demographics[0].ethnicity %>
+	<% end %>
+
+	<% if @demographics[0].sex == "Both Sexes" %>
+	<%= "Males and Females"%>
+	<% else %>
+	<%= @demographics[0].sex %>
+	<% end%>
+	<% if @demographics[0].age == "<1" %>
+	<%= "less than 1 year old" %>
+	<% elsif @demographics[0].age == "All Ages" %>
+	<%= "of All Ages" %>
+	<% else %>
+	<%= @demographics[0].age + " Years Old" %>
+	<% end %>
+
+	from 
+	<% if @demographics[0].state == "United States" %>
+	<%= "the United States" %>
+	<% else %>
+	<%= @demographics[0].state%>.
+	<% end %>
+<% end %></h4>
+
+
+<% unless params[:q]==nil  %>
 <svg class="circle"></svg>
+<% end %>
 <%=search_form_for @search do |f|  %>
 
 	<div>
@@ -21,76 +60,46 @@
 	</div>
 	<% end %>
 
-<% unless @demographics[0] == nil %>
-		You chose to view top causes of death for
-	<% if @demographics[0].race == "All Races" %>
-	<%= " all races of" %>
-	<% else %>
-	<%= @demographics[0].race.downcase  %> 
-	<% end %>
 
-	<% if @demographics[0].ethnicity == "All" %>
-	<%= "hispanic and non-hispanic" %>
-	<% else %>
-	<%= @demographics[0].ethnicity.downcase %>
-	<% end %>
-
-	<% if @demographics[0].sex == "Both Sexes" %>
-	<%= "males and females"%>
-	<% else %>
-	<%= @demographics[0].sex.downcase %>
-	<% end%>
-	<% if @demographics[0].age == "<1" %>
-	<%= "less than 1 year old" %>
-	<% elsif @demographics[0].age == "All Ages" %>
-	<%= "of all ages" %>
-	<% else %>
-	<%= @demographics[0].age + " years old" %>
-	<% end %>
-
-	from 
-	<% if @demographics[0].state == "United States" %>
-	<%= "the United States" %>
-	<% else %>
-	<%= @demographics[0].state%>.
-	<% end %>
-<% end %>
 	<div id="simpleChart"></div>
 	<div class="slider"></div>
 	<div id = "map"></div>
 
 
-	<h3>CHOSEN DEMOGRAPHIC:</h3>
-	<% @demographics.each do |demographic| %>
-	<div>
-		State Chosen: <%= demographic.state %>
-		Race Chosen: <%= demographic.race%>
-		Sex Chosen: <%= demographic.sex %>
-		Hispanic Origin? <%= demographic.ethnicity %>
-		Age Range Chosen: <%= demographic.age %>
-		Year Chosen: <%= demographic.year %> 
-		<strong><%= demographic.id %></strong>
+	<% unless params[:q]==nil  %>
+		<h3>CHOSEN DEMOGRAPHIC:</h3>
+		<% @demographics.each do |demographic| %>
+		<div>
+			State Chosen: <%= demographic.state %>
+			Race Chosen: <%= demographic.race%>
+			Sex Chosen: <%= demographic.sex %>
+			Hispanic Origin? <%= demographic.ethnicity %>
+			Age Range Chosen: <%= demographic.age %>
+			Year Chosen: <%= demographic.year %> 
+			<strong><%= demographic.id %></strong>
 
-</div>
-<% end %>
+		</div>
+		<% end %>
 
-	<h3>Associated Figures</h3>
-	<% @figuresYears.each do |year| %>
-	<div>
-		<% year.each do |figure| %>
 
-			Number: <%= figure.number %>
-			Percentage: <%= figure.percent %>
-			Dem_id: <%= figure.demographic_id %>
-			Death_id: <%= figure.death_id %>
-			ID: <%= figure.id %>
-			<strong>Death ID: <%= figure.death_id %></strong>
-				<% @deaths.each do |death| %>
-					<% if figure.death_id == death.id %>
-						CAUSE: (<%= death.cause %>)
+		<h3>Associated Figures</h3>
+		<% @figuresYears.each do |year| %>
+		<div>
+			<% year.each do |figure| %>
+
+				Number: <%= figure.number %>
+				Percentage: <%= figure.percent %>
+				Dem_id: <%= figure.demographic_id %>
+				Death_id: <%= figure.death_id %>
+				ID: <%= figure.id %>
+				<strong>Death ID: <%= figure.death_id %></strong>
+					<% @deaths.each do |death| %>
+						<% if figure.death_id == death.id %>
+							CAUSE: (<%= death.cause %>)
+						<% end %>
 					<% end %>
 				<% end %>
-			<% end %>
-		</div>
+			</div>
+		<% end %>
 	<% end %>
 
