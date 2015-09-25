@@ -44,27 +44,57 @@ var ready = function(){
     height = 400 - margin.top - margin.bottom;
 		padding = 2;
 		
-		var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-		var y = d3.scale.linear().range([width, 0]);
-
-		// defining axes
+		var x = d3.scale.ordinal()
+    				.rangeRoundBands([0, width], .1, .3);
+		var y = d3.scale.linear()
+						.domain([0, d3.max(dataset[k])/100])
+    				.range([height, 0]);
 		var xAxis = d3.svg.axis()
-	    .scale(x)
-	    .tickFormat(function(d) {
-	    	return causeData[d]
-	    })
-	    .orient("bottom");
-
+		    .scale(x)
+		    .orient("bottom");
 		var yAxis = d3.svg.axis()
 		    .scale(y)
 		    .orient("left")
-		    .ticks(.1, '%');
+		    .ticks(10, "%");
+		// 	var xScale = d3.scale
+		// 		.linear()
+		// 		.domain([d3.min(dataset[k], function(d){return d.percent})])
+		// 		.range([])
+
+		// 	var yScale = d3.scale
+		// 							.linear()
+		// 							.range([0, d3.max(dataset[k])])
+		// 	var xScale = d3.scale.
+		// 							linear()
+		// 							.domain([0, dataset[k].length])
+		// 							.range([0, width]);
+	
+		// // defining axes
+		// var xAxis = d3.svg.axis()
+	 //    .scale(xScale)
+	 //    .tickFormat(function(d) {
+	 //    	return causeSet[d]
+	 //    })
+	 //    .orient("bottom");
+
+		// var yAxis = d3.svg.axis()
+		//     .scale(yScale)
+		//     .orient("left")
+		//     .ticks(.1, '%');
 		    // above setting of ticks alters which percentages get displayed--don't know why
 		// defining chart
 		var chart = d3.select("#simpleChart").append("svg")
-							.attr("width", width + margin.left + margin.right)
-							.attr("height", height + margin.top + margin.bottom);
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+		 chart.append("text")
+      .attr("class", "title")
+      .text("Top Causes of Death");
 		// appending axes
+		
+
 		chart.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
@@ -166,10 +196,10 @@ var ready = function(){
 	//   // value you pass in is 
 	//   d3.select("body").style("background-color", d3.hsl(value, .8, .8));
 	// }
-	d3.json("public/states.json", function(error, states) {
-	  if (error) return console.error(error);
-	  console.log(states);
-	});
+	// d3.json(gon.map, function(error, states) {
+	//   if (error) return console.error(error);
+	//   console.log(states);
+	// });
 };
 
 
