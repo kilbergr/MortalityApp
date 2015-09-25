@@ -4,11 +4,12 @@ var getData = function(){
 // loops add all figure percentages info to dataset grouped by demographic year
 	for (var i = 0; i < gon.figYears.length; i++){
 		var demGroup = [];
-		var idGroup = [];
 		for (var j = 0; j < gon.figYears[i].length; j++){
 			demGroup.push(gon.figYears[i][j].percent);
-		}
-
+			// if (gon.deaths[i].id == gon.figYears[i][j].death_id)
+				//gon.deaths[i].cause, 
+				// {demGroup.push(gon.figYears[i][j].percent);}
+			}
 		dataset.push(demGroup);
 	}
 	return dataset;
@@ -45,11 +46,13 @@ var ready = function(){
 		
 		var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
 		var y = d3.scale.linear().range([width, 0]);
-		
+
 		// defining axes
 		var xAxis = d3.svg.axis()
 	    .scale(x)
-	    .tickFormat(function(d) {return dataset[d].cause})
+	    .tickFormat(function(d) {
+	    	return causeData[d]
+	    })
 	    .orient("bottom");
 
 		var yAxis = d3.svg.axis()
@@ -119,35 +122,57 @@ var ready = function(){
 			"font-size": 12,
 			"fill": "#5E5A54"
 		});	
-
 	}
+
 // slider
-var z = d3.scale.linear()
-    .domain([1999, 2013])
-    .range([0, width])
-    .clamp(true);
-var dispatch = d3.dispatch("sliderChange");
-var slider = d3.select(".slider")
-    .style("width", width + "px");
-var sliderTray = slider.append("div")
-    .attr("class", "slider-tray");
-var sliderHandle = slider.append("div")
-    .attr("class", "slider-handle");
-sliderHandle.append("div")
-    .attr("class", "slider-handle-icon")
-slider.call(d3.behavior.drag()
-    .on("dragstart", function() {
-      dispatch.sliderChange(z.invert(d3.mouse(sliderTray.node())[0]));
-      d3.event.sourceEvent.preventDefault();
-    })
-    .on("drag", function() {
-      dispatch.sliderChange(z.invert(d3.mouse(sliderTray.node())[0]));
-    }));
-dispatch.on("sliderChange.slider", function(value) {
-  sliderHandle.style("left", z(value) + "px")
-});
-	
+	// var brush = d3.svg.brush()
+	//     .x(x)
+	//     .extent([0, 0])
+	//     .on("brush", brushed);
+
+	// var slider = chart.append("g")
+	//     .attr("class", "slider")
+	//     .call(brush);
+
+	// slider.selectAll(".extent,.resize")
+	//     .remove();
+
+	// slider.select(".background")
+	//     .attr("height", height);
+
+	// var handle = slider.append("circle")
+	//     .attr("class", "handle")
+	//     .attr("transform", "translate(0," + height / 2 + ")")
+	//     .attr("r", 9);
+
+	// slider
+	//     .call(brush.event)
+	//   .transition() // gratuitous intro!
+	//     .duration(750)
+	//     .call(brush.extent([0, 0]))
+	//     .call(brush.event);
+
+	// function brushed() {
+	//   var value = brush.extent()[0];
+
+	//   if (d3.event.sourceEvent) { // not a programmatic event
+	//     value = x.invert(d3.mouse(this)[0]);
+	//     brush.extent([value, value]);
+	//   }
+
+	//   handle.attr("cx", x(value));
+
+	//   // here's where you write function
+	//   // value you pass in is 
+	//   d3.select("body").style("background-color", d3.hsl(value, .8, .8));
+	// }
+	d3.json("public/states.json", function(error, states) {
+	  if (error) return console.error(error);
+	  console.log(states);
+	});
 };
+
+
 $(document).ready(ready);
 $(document).on('page:load', ready);
 
