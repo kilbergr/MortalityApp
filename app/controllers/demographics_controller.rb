@@ -2,9 +2,8 @@ class DemographicsController < ApplicationController
  	before_filter :set_search
  
   def index
-  	@search.state_eq = "United States" &&
-  	@search.race_eq = "All" &&
-  	@search.ethnicity_eq = "All" unless params[:q]
+  	@results = @search.result
+  	@search.state_cont = 'Open' && @search.race_cont = 'Open' && @search.sex_cont = 'Open' unless params[:q] 
   	@demographics = @search.result
   	# remember if you want to have extras re:age, set params[:q]["age_eq"] = "All Ages"
   	@figuresYears = [];
@@ -15,10 +14,10 @@ class DemographicsController < ApplicationController
 			@figuresYears.push(@figures)
 		end
 		# add death table to be accessible
-		 @figures.each do |figure|
-		 	@death = Death.find_by_sql "SELECT * FROM deaths WHERE id = " + figure.death_id.to_s
-			@deaths.push(@death[0])
-		end
+		#  @figures.each do |figure|
+		#  	@death = Death.find_by_sql "SELECT * FROM deaths WHERE id = " + figure.death_id.to_s
+		# 	@deaths.push(@death[0])
+		# end
 		#
 		# @map = File.read("app/assets/javascripts/states.json")
 

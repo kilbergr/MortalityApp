@@ -6,10 +6,7 @@ var getData = function(){
 		var demGroup = [];
 		for (var j = 0; j < gon.figYears[i].length; j++){
 			demGroup.push(gon.figYears[i][j].percent);
-			// if (gon.deaths[i].id == gon.figYears[i][j].death_id)
-				//gon.deaths[i].cause, 
-				// {demGroup.push(gon.figYears[i][j].percent);}
-			}
+		}
 		dataset.push(demGroup);
 	}
 	return dataset;
@@ -33,16 +30,17 @@ var ready = function(){
 // push all info from the query into the dataset for d3
 	dataset = getData();
 	causeSet = getCause();
+	debugger;
 
 	for (var k = 0; k < dataset.length; k++){
 		
 // build a chart for each year
 		
 		// set margins
-		var margin = {top: 20, right: 20, bottom: 10, left: 40},
-    width = 800 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
-		padding = 2;
+	var margin = {top: 20, right: 20, bottom: 10, left: 40},
+  width = 800 - margin.left - margin.right,
+  height = 400 - margin.top - margin.bottom;
+	padding = 2;
 		
 		var x = d3.scale.ordinal()
     				.rangeRoundBands([0, width], .1, .3);
@@ -56,40 +54,14 @@ var ready = function(){
 		    .scale(y)
 		    .orient("left")
 		    .ticks(10, "%");
-		// 	var xScale = d3.scale
-		// 		.linear()
-		// 		.domain([d3.min(dataset[k], function(d){return d.percent})])
-		// 		.range([])
 
-		// 	var yScale = d3.scale
-		// 							.linear()
-		// 							.range([0, d3.max(dataset[k])])
-		// 	var xScale = d3.scale.
-		// 							linear()
-		// 							.domain([0, dataset[k].length])
-		// 							.range([0, width]);
-	
-		// // defining axes
-		// var xAxis = d3.svg.axis()
-	 //    .scale(xScale)
-	 //    .tickFormat(function(d) {
-	 //    	return causeSet[d]
-	 //    })
-	 //    .orient("bottom");
-
-		// var yAxis = d3.svg.axis()
-		//     .scale(yScale)
-		//     .orient("left")
-		//     .ticks(.1, '%');
-		    // above setting of ticks alters which percentages get displayed--don't know why
-		// defining chart
 		var chart = d3.select("#simpleChart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 		
-		 chart.append("text")
+		chart.append("text")
       .attr("class", "title")
       .text("Top Causes of Death");
 		// appending axes
@@ -203,6 +175,6 @@ var ready = function(){
 };
 
 
-$(document).ready(ready);
-$(document).on('page:load', ready);
+ // $(document).ready(ready);
+ //$(document).on('page:load', ready);
 
