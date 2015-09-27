@@ -70,7 +70,13 @@ h1{
 }
 .circle {
   height: 800px;
-  width: 1000px;
+  width: 1400px;
+}
+
+.bubble {
+  fill: #FFCFAD;
+  stroke: #B8AA95;
+  opacity: .5;
 }
 
 .axis path,
