@@ -49,7 +49,7 @@
 		<%= f.label :state_eq, "State" %>
 		<%= f.select :state_eq, options_for_select(['United States', 'Northeast', 'Midwest', 'South', 'West', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Mississippi', 'Missouri', 'New York', 'Pennsylvania', 'Rhode Island', 'South Dakota', 'Tennessee', 'Texas', 'Virginia', 'Wisconsin', 'Wyoming' ]) %> 
 		<%= f.label :race_eq, "Race:" %>
-    <%= f.select :race_eq, options_for_select([['All', 'All Races'], ['White', 'White'],['Black', 'Black'], ['American Indian or Alaska Native','Am Indian/AK Native'], ['Asian or Pacific Islander', 'Asian/Pac Islander'], ['All Others', 'Other(combined)']]) %>
+    <%= f.select :race_eq, options_for_select([['All', 'All Races'], ['White', 'White'],['Black', 'Black'], ['American Indian or Alaska Native','Am Indian/AK Native'], ['Asian or Pacific Islander', 'Asian/Pac Islander'], ['All Others', 'Other Races']]) %>
     <%= f.label(:ethnicity_eq, "Hispanic Origin:") %>
     <%= f.select(:ethnicity_eq, options_for_select(['All', 'Non-Hispanic', 'Hispanic'])) %>
     <%= f.label(:sex_eq, "Sex:") %>

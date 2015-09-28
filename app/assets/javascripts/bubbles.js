@@ -1,20 +1,31 @@
-// var getData = function(){
-//   var dataset = {};
-//    dataset.children = [];
-// // loops add all figure percentages info to dataset grouped by demographic year
-//   for (var i = 0; i < gon.figYears.length; i++){
-//     var demGroup = [];
-//     for (var j = 0; j < gon.figYears[i].length; j++){
-//       var eachEntry = []
-//       demGroup["percent"] = '' + gon.figYears[i][j].percent + '';
-//       demGroup["cause"] = gon.deaths[j].cause;
-//       eachEntry.push(demGroup)
-//     }
-//     debugger;
-//     dataset.children.push(eachEntry);
-//   }
-//   return dataset;
-// };
+var getDataCluster = function(){
+ var dataset = {"children": []};
+  
+// loops add all figure percentages info to dataset grouped by demographic year
+ for (var i = 0; i < gon.figYears.length; i++){
+  
+   for (var j = 0; j < gon.figYears[i].length; j++){
+     // create a nest to use in cluster
+     demGroup = {};
+     demGroup.percent = gon.figYears[i][j].percent;
+     demGroup.number = gon.figYears[i][j].number;
+     demGroup.cause = gon.deaths[j].cause;
+     debugger;
+     demGroup.age = gon.demographics[j].age;
+     demGroup.ethnicity = gon.demographics[j].ethnicity;
+     demGroup.race = gon.demographics[j].race;
+     demGroup.sex = gon.demographics[j].sex;
+     demGroup.state = gon.demographics[j].state;
+     demGroup.year = gon.demographics[j].year;
+     demGroup.death_id = gon.deaths[j].id;
+     demGroup.dem_id = gon.figYears[i][j].demographic_id;  
+    // add to dataset we're using
+    dataset.children.push(demGroup);
+   }
+ }
+
+ return dataset;
+}
 
 // SAFE WAY TO RETURN TO
 var getData = function(){
@@ -31,29 +42,30 @@ var getData = function(){
  return dataset;
 }
 
-// $(document).on('ready page:load', function(){
-//   dataset = getData();
-//   var diameter = 300,
-//     format = d3.format(",d");
+// Cluster attempt
+$(document).on('ready page:load', function(){
+  dataset = getDataCluster();
+  var diameter = 300,
+    format = d3.format(",d");
 
-// var color = d3.scale.ordinal()
-//     .domain(["Sqoop", "Pig", "Apache", "a", "b", "c", "d", "e", "f", "g"])
-//     .range(["steelblue", "pink", "lightgreen", "violet", "orangered", "green", "orange", "skyblue", "gray", "aqua"]);
+var color = d3.scale.ordinal()
+    .domain(["Sqoop", "Pig", "Apache", "a", "b", "c", "d", "e", "f", "g"])
+    .range(["steelblue", "pink", "lightgreen", "violet", "orangered", "green", "orange", "skyblue", "gray", "aqua"]);
 
-// var bubble = d3.layout.pack()
-//     .sort(null)
-//     .size([diameter, diameter])
-//     .padding(10);
+var bubble = d3.layout.pack()
+    .sort(null)
+    .size([diameter, diameter])
+    .padding(10);
 
-// var svg = d3.select("#chart").append("svg")
-//     .attr("width", diameter)
-//     .attr("height", diameter)
-//     .attr("class", "bubble");
+var svg = d3.select("#chart").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+    .attr("class", "bubble");
 
-// var root = dataset[0],
-// root1 = dataset[1],
-// root2 = dataset[2],
-// root3 = dataset[4];
+var root = dataset[0],
+root1 = dataset[1],
+root2 = dataset[2],
+root3 = dataset[4];
 
 
 // var root4 = {
@@ -109,153 +121,152 @@ var getData = function(){
 //     }]
 // };
 
-// var node = svg.selectAll(".node")
-//     .data(bubble.nodes(classes(root))
-//     .filter(function (d) {
-//     return !d.children;
-// }))
-//     .enter().append("g")
-//     .attr("class", "node")
-//     .attr("transform", function (d) {
-//     return "translate(" + d.x + "," + d.y + ")";
-// });
+var node = svg.selectAll(".node")
+    .data(bubble.nodes(classes(root))
+    .filter(function (d) {
+    return !d.children;
+}))
+    .enter().append("g")
+    .attr("class", "node")
+    .attr("transform", function (d) {
+    return "translate(" + d.x + "," + d.y + ")";
+});
 
-// node.append("title")
-//     .text(function (d) {
-//     return d.className + ": " + format(d.value);
-// });
+node.append("title")
+    .text(function (d) {
+    return d.className + ": " + format(d.value);
+});
 
-// node.append("circle")
-//     .attr("r", function (d) {
-//     return d.r;
-// })
-//     .style("fill", function (d, i) {
-//     return color(i);
-// });
-
-
-
-// // Returns a flattened hierarchy containing all leaf nodes under the root.
-
-// function classes(root) {
-//     var classes = [];
-
-//     function recurse(name, node) {
-//         if (node.children) node.children.forEach(function (child) {
-//             recurse(node.name, child);
-//         });
-//         else classes.push({
-//             packageName: name,
-//             className: node.name,
-//             value: node.size
-//         });
-//     }
-
-//     recurse(null, root);
-//     return {
-//         children: classes
-//     };
-// }
-
-// //d3.select(self.frameElement).style("height", diameter + "px");
+node.append("circle")
+    .attr("r", function (d) {
+    return d.r;
+})
+    .style("fill", function (d, i) {
+    return color(i);
+});
 
 
-// //My Refer;
-// var click = 0;
 
-// function changevalues() {
-//     click++;
-//     if (click == 1) changebubble(root2);
-//     else if (click == 2) changebubble(root3);
-//     else changebubble(root4);
+// Returns a flattened hierarchy containing all leaf nodes under the root.
 
-// }
+function classes(root) {
+    var classes = [];
 
-// //update function
-// function changebubble(root) {
-//     var node = svg.selectAll(".node")
-//         .data(
-//             bubble.nodes(classes(root)).filter(function (d){return !d.children;}),
-//             function(d) {return d.className} // key data based on className to keep object constancy
-//         );
+    function recurse(name, node) {
+        if (node.children) node.children.forEach(function (child) {
+            recurse(node.name, child);
+        });
+        else classes.push({
+            packageName: name,
+            className: node.name,
+            value: node.size
+        });
+    }
+
+    recurse(null, root);
+    return {
+        children: classes
+    };
+}
+
+//d3.select(self.frameElement).style("height", diameter + "px");
+
+
+//My Refer;
+var click = 0;
+
+function changevalues() {
+    click++;
+    if (click == 1) changebubble(root2);
+    else if (click == 2) changebubble(root3);
+    else changebubble(root4);
+
+}
+
+//update function
+function changebubble(root) {
+    var node = svg.selectAll(".node")
+        .data(
+            bubble.nodes(classes(root)).filter(function (d){return !d.children;}),
+            function(d) {return d.className} // key data based on className to keep object constancy
+        );
     
-//     // capture the enter selection
-//     var nodeEnter = node.enter()
-//         .append("g")
-//         .attr("class", "node")
-//         .attr("transform", function (d) {
-//             return "translate(" + d.x + "," + d.y + ")";
-//         });
+    // capture the enter selection
+    var nodeEnter = node.enter()
+        .append("g")
+        .attr("class", "node")
+        .attr("transform", function (d) {
+            return "translate(" + d.x + "," + d.y + ")";
+        });
     
-//     // re-use enter selection for circles
-//     nodeEnter
-//         .append("circle")
-//         .attr("r", function (d) {return d.r;})
-//         .style("fill", function (d, i) {return color(i);})
+    // re-use enter selection for circles
+    nodeEnter
+        .append("circle")
+        .attr("r", function (d) {return d.r;})
+        .style("fill", function (d, i) {return color(i);})
     
-//     // re-use enter selection for titles
-//     nodeEnter
-//         .append("title")
-//         .text(function (d) {
-//             return d.className + ": " + format(d.value);
-//         });
+    // re-use enter selection for titles
+    nodeEnter
+        .append("title")
+        .text(function (d) {
+            return d.className + ": " + format(d.value);
+        });
     
-//     node.select("circle")
-//         .transition().duration(1000)
-//         .attr("r", function (d) {
-//             return d.r;
-//         })
-//         .style("fill", function (d, i) {
-//             return color(i);
-//         });
+    node.select("circle")
+        .transition().duration(1000)
+        .attr("r", function (d) {
+            return d.r;
+        })
+        .style("fill", function (d, i) {
+            return color(i);
+        });
 
-//     node.transition().attr("class", "node")
-//         .attr("transform", function (d) {
-//         return "translate(" + d.x + "," + d.y + ")";
-//     });
+    node.transition().attr("class", "node")
+        .attr("transform", function (d) {
+        return "translate(" + d.x + "," + d.y + ")";
+    });
 
-//     node.exit().remove();
+    node.exit().remove();
 
-//     // Returns a flattened hierarchy containing all leaf nodes under the root.
-//     function classes(root) {
-//         var classes = [];
+    // Returns a flattened hierarchy containing all leaf nodes under the root.
+    function classes(root) {
+        var classes = [];
 
-//         function recurse(name, node) {
-//             if (node.children) node.children.forEach(function (child) {
-//                 recurse(node.name, child);
-//             });
-//             else classes.push({
-//                 packageName: name,
-//                 className: node.name,
-//                 value: node.size
-//             });
-//         }
+        function recurse(name, node) {
+            if (node.children) node.children.forEach(function (child) {
+                recurse(node.name, child);
+            });
+            else classes.push({
+                packageName: name,
+                className: node.name,
+                value: node.size
+            });
+        }
 
-//         recurse(null, root);
-//         return {
-//             children: classes
-//         };
-//     }
+        recurse(null, root);
+        return {
+            children: classes
+        };
+    }
 
-//     //d3.select(self.frameElement).style("height", diameter + "px");
-// }
+    // d3.select(self.frameElement).style("height", diameter + "px");
+}
 
-// function updateBubble1() {changebubble(root);};
-// function updateBubble2() {changebubble(root2);};
-// function updateBubble3() {changebubble(root3);};
-// function updateBubble4() {changebubble(root4);};
+function updateBubble1() {changebubble(root);};
+function updateBubble2() {changebubble(root2);};
+function updateBubble3() {changebubble(root3);};
+function updateBubble4() {changebubble(root4);};
 
-// d3.select("#dataset1").on("click",updateBubble1);
-// d3.select("#dataset2").on("click",updateBubble2);
-// d3.select("#dataset3").on("click",updateBubble3);
-// d3.select("#dataset4").on("click",updateBubble4);
-// })
+d3.select("#dataset1").on("click",updateBubble1);
+d3.select("#dataset2").on("click",updateBubble2);
+d3.select("#dataset3").on("click",updateBubble3);
+d3.select("#dataset4").on("click",updateBubble4);
+})
 
 
 $(document).on('ready page:load', function () {
   var dataset = getData(),
-  usedata = dataset[0];
-
+  usedata = dataset[dataset.length-1];
 
   var width = 1000,
   height = 500,
@@ -301,46 +312,8 @@ $(document).on('ready page:load', function () {
       })
 
 
-  var updateData = function(id, num){
-    d3.select('#' + id)
-        .on("click", function() {
-          var dataset = getData(),
-          usedata = dataset[num];
-          svg.selectAll("circle")
-          .data(usedata)
-          .transition() 
-          .duration(2000)
-            .attr("r", (function(d) {return d*3}))
-            .attr("cx", (function(d, i) { return i*50}))
-            .attr("cy", (function(d){ return yScale(d)}))
-            .attr("class",  "bubble");
-
-          svg.selectAll("text")
-             .data(usedata)
-             .transition() 
-             .duration(2000) 
-             .text(function(d) { return d;})
-             .attr("x", function(d, i) {return xScale(i) + xScale.rangeBand() / 2;})
-             .attr("y", function(d) { return yScale(d) ;})
-             .attr("font-family", "sans-serif")
-             .attr("font-size", "11px")
-             .attr("fill", "#B8AA95");
-             // yaxis append
-          svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0, 0)")
-            .call(yAxis);
-        });
-  };
-  updateData('click1999', 0);
-  updateData('click2000', 1);
-  updateData('click2001', 2);
-  updateData('click2002', 3); 
-    //update
-
-
       // individual label points
-    svg.selectAll("text")
+  svg.selectAll("text")
        .data(usedata)
        .enter()
        .append("text")
@@ -369,6 +342,57 @@ $(document).on('ready page:load', function () {
     .text(function(d){
         return d;
       })
+
+
+  var updateData = function(id, num){
+
+
+
+    d3.select('#' + id)
+        .on("click", function() {
+          var dataset = getData(),
+          usedata = dataset[num],
+          yScale = d3.scale.linear()
+            .domain([0, d3.max(usedata)])
+            .range([0, height]),
+          yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("right")
+            .ticks(20);
+
+          svg.selectAll("circle")
+          .data(usedata)
+          .transition() 
+          .duration(2000)
+            .attr("r", (function(d) {return d*3}))
+            .attr("cx", (function(d, i) { return i*50}))
+            .attr("cy", (function(d){ return yScale(d)}))
+            .attr("class",  "bubble");
+
+          svg.selectAll("text")
+             .data(usedata)
+             .transition() 
+             .duration(2000) 
+             .text(function(d) { return d;})
+             .attr("x", function(d, i) {return xScale(i) + xScale.rangeBand() / 2;})
+             .attr("y", function(d) { return yScale(d) ;})
+             .attr("font-family", "sans-serif")
+             .attr("font-size", "11px")
+             .attr("fill", "#B8AA95");
+             // yaxis append
+          svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0, 0)")
+            .call(yAxis);
+        });
+  };
+
+  updateData('click1999', 0);
+  updateData('click2000', 1);
+  updateData('click2001', 2);
+  updateData('click2002', 3); 
+  
+
 
 
 
