@@ -1,30 +1,65 @@
-var getDataCluster = function(){
- var dataset = {"children": []};
+var getDeathCause = function(death_id){
+  for(var i = 0; i<gon.deaths.length; i++){
+    if (death_id == gon.deaths[i].id){
+      return gon.deaths[i].cause
+    }
+  }
+}
+
+var getDemInfo = function(dem_id){
+  for(var i = 0; i<gon.demographics.length; i++){
+    if (dem_id == gon.demographics[i].id){
+      return gon.demographics[i];
+    }
+  }
+}
+
+var bundleCause = function(relFig){
+  var deathData = [];
+  for(var i = 0; i < relFig.length; i++){
+    deathInfo = {};
+    // add the relevant stats to the allStats object
+     deathInfo.percent = relFig[i].percent;
+     deathInfo.number = relFig[i].number;
+     // find relevant cause
+     deathInfo.cause = getDeathCause(relFig[i].death_id)
+     deathData.push(deathInfo);
+  }
+   return deathData;  
   
+}
+
+var getDataCluster = function(){
+
+ // structure here is :
+ // byDem.byYear.children.data
+ // MaleGeorgianHispanicAllAges.1999.children = [{cause: malignant neoplasm, percent: 19, number: 342}]
+ var byYear = [];
+  
+
 // loops add all figure percentages info to dataset grouped by demographic year
  for (var i = 0; i < gon.figYears.length; i++){
-  
    for (var j = 0; j < gon.figYears[i].length; j++){
      // create a nest to use in cluster
-     demGroup = {};
-     demGroup.percent = gon.figYears[i][j].percent;
-     demGroup.number = gon.figYears[i][j].number;
-     demGroup.cause = gon.deaths[j].cause;
-     debugger;
-     demGroup.age = gon.demographics[j].age;
-     demGroup.ethnicity = gon.demographics[j].ethnicity;
-     demGroup.race = gon.demographics[j].race;
-     demGroup.sex = gon.demographics[j].sex;
-     demGroup.state = gon.demographics[j].state;
-     demGroup.year = gon.demographics[j].year;
-     demGroup.death_id = gon.deaths[j].id;
-     demGroup.dem_id = gon.figYears[i][j].demographic_id;  
-    // add to dataset we're using
-    dataset.children.push(demGroup);
+     allStats = {};
+     // easier variable to hold relevant figure information
+     relFig = gon.figYears[i][j]
+     // find relevant demographics
+     demInfo = getDemInfo(relFig.demographic_id);
+     allStats.age = demInfo.age;
+     allStats.ethnicity = demInfo.ethnicity;
+     allStats.race = demInfo.race;
+     allStats.sex = demInfo.sex;
+     allStats.state = demInfo.state;
+     allStats.year = demInfo.year;
+
+    // subfunction taking the year with the dem type fetch all possible causes 
+    allStats.deathInfo = bundleCause(gon.figYears[i]);
+   //  // add to dataset we're using
+    byYear[allStats.year] = allStats;
    }
  }
-
- return dataset;
+ return byYear;
 }
 
 // SAFE WAY TO RETURN TO
@@ -61,7 +96,7 @@ var svg = d3.select("#chart").append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
     .attr("class", "bubble");
-
+debugger;
 var root = dataset[0],
 root1 = dataset[1],
 root2 = dataset[2],
@@ -152,14 +187,15 @@ node.append("circle")
 function classes(root) {
     var classes = [];
 
-    function recurse(name, node) {
+    function recurse(cause, node) {
+      debugger;
         if (node.children) node.children.forEach(function (child) {
-            recurse(node.name, child);
+            recurse(node.cause, child);
         });
         else classes.push({
-            packageName: name,
-            className: node.name,
-            value: node.size
+            packageName: cause,
+            className: node.cause,
+            value: node.percent
         });
     }
 
@@ -232,14 +268,14 @@ function changebubble(root) {
     function classes(root) {
         var classes = [];
 
-        function recurse(name, node) {
+        function recurse(cause, node) {
             if (node.children) node.children.forEach(function (child) {
                 recurse(node.name, child);
             });
             else classes.push({
-                packageName: name,
-                className: node.name,
-                value: node.size
+                packageName: cause,
+                className: node.cause,
+                value: node.percent
             });
         }
 
@@ -264,142 +300,7 @@ d3.select("#dataset4").on("click",updateBubble4);
 })
 
 
-$(document).on('ready page:load', function () {
-  var dataset = getData(),
-  usedata = dataset[dataset.length-1];
 
-  var width = 1000,
-  height = 500,
-  padding= 20;
-  
-  var xScale = d3.scale.ordinal()
-              .domain(d3.range(usedata.length))
-              .rangeRoundBands([0, width], 0.05)
-
-  var yScale = d3.scale.linear()
-              .domain([0, d3.max(usedata)])
-              .range([0, height]);
-
-  var rScale = d3.scale.linear()
-                     .domain([0, d3.max(usedata, function(d) { return d; })])
-                     .range([2, 5]);
-
-  var svg = d3.select("svg").append("svg")
-            .attr("width", width)
-            .attr("height", height);
-
-  var yAxis = d3.svg.axis()
-                .scale(yScale)
-                .orient("right")
-                .ticks(20);
-
-
-  var circle = svg.selectAll("circle")
-    .data(usedata)
-    .enter()
-    .append("circle")
-      .attr("r", (function(d) {return d*3}))
-      .attr("cx", (function(d, i) { return i*50}))
-      .attr("cy", (function(d){ 
-        // debugger;
-        return yScale(d)}))
-      .attr("class",  "bubble")
-    
-    circle
-        .append("title")
-       .text(function(d) {
-             return d;
-      })
-
-
-      // individual label points
-  svg.selectAll("text")
-       .data(usedata)
-       .enter()
-       .append("text")
-       .text(function(d) {
-          return d;
-       })
-       .attr("x", function(d, i) {
-          return (i * 50)-2;
-       })
-       .attr("y", function(d){return d+10})
-       .attr("font-family", "sans-serif")
-       .attr("font-size", "11px")
-       .attr("fill", "#B8AA95");
-       // yaxis append
-    svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0, 0)")
-      .call(yAxis);
-
-  var tooltip = d3.select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .data(usedata)
-    .text(function(d){
-        return d;
-      })
-
-
-  var updateData = function(id, num){
-
-
-
-    d3.select('#' + id)
-        .on("click", function() {
-          var dataset = getData(),
-          usedata = dataset[num],
-          yScale = d3.scale.linear()
-            .domain([0, d3.max(usedata)])
-            .range([0, height]),
-          yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("right")
-            .ticks(20);
-
-          svg.selectAll("circle")
-          .data(usedata)
-          .transition() 
-          .duration(2000)
-            .attr("r", (function(d) {return d*3}))
-            .attr("cx", (function(d, i) { return i*50}))
-            .attr("cy", (function(d){ return yScale(d)}))
-            .attr("class",  "bubble");
-
-          svg.selectAll("text")
-             .data(usedata)
-             .transition() 
-             .duration(2000) 
-             .text(function(d) { return d;})
-             .attr("x", function(d, i) {return xScale(i) + xScale.rangeBand() / 2;})
-             .attr("y", function(d) { return yScale(d) ;})
-             .attr("font-family", "sans-serif")
-             .attr("font-size", "11px")
-             .attr("fill", "#B8AA95");
-             // yaxis append
-          svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0, 0)")
-            .call(yAxis);
-        });
-  };
-
-  updateData('click1999', 0);
-  updateData('click2000', 1);
-  updateData('click2001', 2);
-  updateData('click2002', 3); 
-  
-
-
-
-
-  // circle.exit().remove();
-
- });
-  
 
 
 //   var width = 800,
