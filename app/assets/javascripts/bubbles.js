@@ -1,18 +1,35 @@
+// var getData = function(){
+//   var dataset = {};
+//    dataset.children = [];
+// // loops add all figure percentages info to dataset grouped by demographic year
+//   for (var i = 0; i < gon.figYears.length; i++){
+//     var demGroup = [];
+//     for (var j = 0; j < gon.figYears[i].length; j++){
+//       var eachEntry = []
+//       demGroup["percent"] = '' + gon.figYears[i][j].percent + '';
+//       demGroup["cause"] = gon.deaths[j].cause;
+//       eachEntry.push(demGroup)
+//     }
+//     debugger;
+//     dataset.children.push(eachEntry);
+//   }
+//   return dataset;
+// };
+
+// SAFE WAY TO RETURN TO
 var getData = function(){
-  var dataset = {"children":[]};
+ var dataset = [];
   
 // loops add all figure percentages info to dataset grouped by demographic year
-  for (var i = 0; i < gon.figYears.length; i++){
-    var demGroup = [];
-    for (var j = 0; j < gon.figYears[i].length; j++){
-      debugger;
-      demGroup.push(gon.figYears[i][j].percent);
-
-    }
-    dataset.push(demGroup);
-  }
-  return dataset;
-};
+ for (var i = 0; i < gon.figYears.length; i++){
+   var demGroup = [];
+   for (var j = 0; j < gon.figYears[i].length; j++){
+     demGroup.push(gon.figYears[i][j].percent);
+   }
+   dataset.push(demGroup);
+ }
+ return dataset;
+}
 
 // $(document).on('ready page:load', function(){
 //   dataset = getData();
@@ -239,6 +256,7 @@ $(document).on('ready page:load', function () {
   var dataset = getData(),
   usedata = dataset[0];
 
+
   var width = 1000,
   height = 500,
   padding= 20;
@@ -267,20 +285,24 @@ $(document).on('ready page:load', function () {
 
   var circle = svg.selectAll("circle")
     .data(usedata)
-    .enter().append("circle")
+    .enter()
+    .append("circle")
       .attr("r", (function(d) {return d*3}))
       .attr("cx", (function(d, i) { return i*50}))
       .attr("cy", (function(d){ 
         // debugger;
         return yScale(d)}))
       .attr("class",  "bubble")
-      .on("mouseover", function(){return tooltip.style("visibility", "visible");})
-      .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-      .on("mouseout", function(){return tooltip.style("visibility", "hidden");
-    });
+    
+    circle
+        .append("title")
+       .text(function(d) {
+             return d;
+      })
       //update
      d3.select("#click1999")
         .on("click", function() {
+          usedata = [];
           usedata = dataset[0];
           svg.selectAll("circle")
             .data(usedata)
@@ -291,11 +313,14 @@ $(document).on('ready page:load', function () {
                 // debugger;
                 return yScale(d)}))
               .attr("class",  "bubble")
-              .on("mouseover", function(){return tooltip.style("visibility", "visible");})
-              .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-              .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+              .on("mouseover", function() {
+                  d3.select(this)
+                  .attr("fill", "blue");
+          });
           svg.selectAll("text")
              .data(usedata)
+             .transition() 
+             .duration(2000) 
              .text(function(d) {
                 return d;
              })
@@ -303,7 +328,7 @@ $(document).on('ready page:load', function () {
                 return xScale(i) + xScale.rangeBand() / 2;
              })
              .attr("y", function(d) {
-                return h - yScale(d) + 14;
+                return yScale(d) ;
              })
              .attr("font-family", "sans-serif")
              .attr("font-size", "11px")
@@ -317,6 +342,7 @@ $(document).on('ready page:load', function () {
     //update
      d3.select("#click2000")
         .on("click", function() {
+          usedata = [];
           usedata = dataset[1];
           svg.selectAll("circle")
             .data(usedata)
@@ -332,6 +358,8 @@ $(document).on('ready page:load', function () {
               .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
           svg.selectAll("text")
              .data(usedata)
+             .transition() 
+             .duration(2000) 
              .text(function(d) {
                 return d;
              })
@@ -339,7 +367,7 @@ $(document).on('ready page:load', function () {
                 return xScale(i) + xScale.rangeBand() / 2;
              })
              .attr("y", function(d) {
-                return h - yScale(d) + 14;
+                return  yScale(d);
              })
              .attr("font-family", "sans-serif")
              .attr("font-size", "11px")
@@ -354,6 +382,7 @@ $(document).on('ready page:load', function () {
     //update
      d3.select("#click2001")
         .on("click", function() {
+          usedata = [];
           usedata = dataset[2];
           svg.selectAll("circle")
             .data(usedata)
@@ -369,6 +398,8 @@ $(document).on('ready page:load', function () {
               .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
           svg.selectAll("text")
              .data(usedata)
+             .transition() 
+             .duration(2000) 
              .text(function(d) {
                 return d;
              })
@@ -376,7 +407,7 @@ $(document).on('ready page:load', function () {
                 return xScale(i) + xScale.rangeBand() / 2;
              })
              .attr("y", function(d) {
-                return h - yScale(d) + 14;
+                return yScale(d);
              })
              .attr("font-family", "sans-serif")
              .attr("font-size", "11px")
@@ -390,6 +421,7 @@ $(document).on('ready page:load', function () {
 //update
      d3.select("#click2002")
         .on("click", function() {
+          usedata = [];
           usedata = dataset[3];
           svg.selectAll("circle")
             .data(usedata)
@@ -405,6 +437,8 @@ $(document).on('ready page:load', function () {
               .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
           svg.selectAll("text")
              .data(usedata)
+             .transition() 
+             .duration(2000) 
              .text(function(d) {
                 return d;
              })
@@ -412,7 +446,7 @@ $(document).on('ready page:load', function () {
                 return xScale(i) + xScale.rangeBand() / 2;
              })
              .attr("y", function(d) {
-                return h - yScale(d) + 14;
+                return yScale(d);
              })
              .attr("font-family", "sans-serif")
              .attr("font-size", "11px")
