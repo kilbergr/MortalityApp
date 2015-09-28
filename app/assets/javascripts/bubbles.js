@@ -300,13 +300,28 @@ $(document).on('ready page:load', function () {
              return d;
       })
       //update
+     var update = function(usedata){
+     var xScale = d3.scale.ordinal()
+              .domain(d3.range(usedata.length))
+              .rangeRoundBands([0, width], 0.05)
+
+     var yScale = d3.scale.linear()
+                .domain([0, d3.max(usedata)])
+                .range([0, height]);
+
+     var rScale = d3.scale.linear()
+                .domain([0, d3.max(usedata, function(d) { return d; })])
+                .range([2, 5]);
+       
+
+      }
+
      d3.select("#click1999")
         .on("click", function() {
-          usedata = [];
+          var dataset = getData(),
           usedata = dataset[0];
           svg.selectAll("circle")
             .data(usedata)
-            .enter().append("circle")
               .attr("r", (function(d) {return d*3}))
               .attr("cx", (function(d, i) { return i*50}))
               .attr("cy", (function(d){ 
@@ -342,11 +357,10 @@ $(document).on('ready page:load', function () {
     //update
      d3.select("#click2000")
         .on("click", function() {
-          usedata = [];
+         var dataset = getData(),
           usedata = dataset[1];
           svg.selectAll("circle")
             .data(usedata)
-            .enter().append("circle")
               .attr("r", (function(d) {return d*3}))
               .attr("cx", (function(d, i) { return i*50}))
               .attr("cy", (function(d){ 
@@ -386,7 +400,6 @@ $(document).on('ready page:load', function () {
           usedata = dataset[2];
           svg.selectAll("circle")
             .data(usedata)
-            .enter().append("circle")
               .attr("r", (function(d) {return d*3}))
               .attr("cx", (function(d, i) { return i*50}))
               .attr("cy", (function(d){ 
@@ -425,8 +438,8 @@ $(document).on('ready page:load', function () {
           usedata = dataset[3];
           svg.selectAll("circle")
             .data(usedata)
-            .enter().append("circle")
-              .attr("r", (function(d) {return d*3}))
+             .attr("r", (function(d) {
+                return d*3}))
               .attr("cx", (function(d, i) { return i*50}))
               .attr("cy", (function(d){ 
                 // debugger;
@@ -495,10 +508,9 @@ $(document).on('ready page:load', function () {
 
   // circle.exit().remove();
 
- 
+ });
   
 
-});
 
 //   var width = 800,
   // height = 600;
