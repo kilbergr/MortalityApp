@@ -299,178 +299,44 @@ $(document).on('ready page:load', function () {
        .text(function(d) {
              return d;
       })
-      //update
-     var update = function(usedata){
-     var xScale = d3.scale.ordinal()
-              .domain(d3.range(usedata.length))
-              .rangeRoundBands([0, width], 0.05)
 
-     var yScale = d3.scale.linear()
-                .domain([0, d3.max(usedata)])
-                .range([0, height]);
 
-     var rScale = d3.scale.linear()
-                .domain([0, d3.max(usedata, function(d) { return d; })])
-                .range([2, 5]);
-       
-
-      }
-
-     d3.select("#click1999")
+  var updateData = function(id, num){
+    d3.select('#' + id)
         .on("click", function() {
           var dataset = getData(),
-          usedata = dataset[0];
+          usedata = dataset[num];
           svg.selectAll("circle")
-            .data(usedata)
-              .attr("r", (function(d) {return d*3}))
-              .attr("cx", (function(d, i) { return i*50}))
-              .attr("cy", (function(d){ 
-                // debugger;
-                return yScale(d)}))
-              .attr("class",  "bubble")
-              .on("mouseover", function() {
-                  d3.select(this)
-                  .attr("fill", "blue");
-          });
-          svg.selectAll("text")
-             .data(usedata)
-             .transition() 
-             .duration(2000) 
-             .text(function(d) {
-                return d;
-             })
-             .attr("x", function(d, i) {
-                return xScale(i) + xScale.rangeBand() / 2;
-             })
-             .attr("y", function(d) {
-                return yScale(d) ;
-             })
-             .attr("font-family", "sans-serif")
-             .attr("font-size", "11px")
-             .attr("fill", "#B8AA95");
-             // yaxis append
-          svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0, 0)")
-            .call(yAxis);
-        });
-    //update
-     d3.select("#click2000")
-        .on("click", function() {
-         var dataset = getData(),
-          usedata = dataset[1];
-          svg.selectAll("circle")
-            .data(usedata)
-              .attr("r", (function(d) {return d*3}))
-              .attr("cx", (function(d, i) { return i*50}))
-              .attr("cy", (function(d){ 
-                // debugger;
-                return yScale(d)}))
-              .attr("class",  "bubble")
-              .on("mouseover", function(){return tooltip.style("visibility", "visible");})
-              .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-              .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
-          svg.selectAll("text")
-             .data(usedata)
-             .transition() 
-             .duration(2000) 
-             .text(function(d) {
-                return d;
-             })
-             .attr("x", function(d, i) {
-                return xScale(i) + xScale.rangeBand() / 2;
-             })
-             .attr("y", function(d) {
-                return  yScale(d);
-             })
-             .attr("font-family", "sans-serif")
-             .attr("font-size", "11px")
-             .attr("fill", "#B8AA95");
-             // yaxis append
-          svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0, 0)")
-            .call(yAxis);
-        });
+          .data(usedata)
+          .transition() 
+          .duration(2000)
+            .attr("r", (function(d) {return d*3}))
+            .attr("cx", (function(d, i) { return i*50}))
+            .attr("cy", (function(d){ return yScale(d)}))
+            .attr("class",  "bubble");
 
+          svg.selectAll("text")
+             .data(usedata)
+             .transition() 
+             .duration(2000) 
+             .text(function(d) { return d;})
+             .attr("x", function(d, i) {return xScale(i) + xScale.rangeBand() / 2;})
+             .attr("y", function(d) { return yScale(d) ;})
+             .attr("font-family", "sans-serif")
+             .attr("font-size", "11px")
+             .attr("fill", "#B8AA95");
+             // yaxis append
+          svg.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0, 0)")
+            .call(yAxis);
+        });
+  };
+  updateData('click1999', 0);
+  updateData('click2000', 1);
+  updateData('click2001', 2);
+  updateData('click2002', 3); 
     //update
-     d3.select("#click2001")
-        .on("click", function() {
-          usedata = [];
-          usedata = dataset[2];
-          svg.selectAll("circle")
-            .data(usedata)
-              .attr("r", (function(d) {return d*3}))
-              .attr("cx", (function(d, i) { return i*50}))
-              .attr("cy", (function(d){ 
-                // debugger;
-                return yScale(d)}))
-              .attr("class",  "bubble")
-              .on("mouseover", function(){return tooltip.style("visibility", "visible");})
-              .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-              .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
-          svg.selectAll("text")
-             .data(usedata)
-             .transition() 
-             .duration(2000) 
-             .text(function(d) {
-                return d;
-             })
-             .attr("x", function(d, i) {
-                return xScale(i) + xScale.rangeBand() / 2;
-             })
-             .attr("y", function(d) {
-                return yScale(d);
-             })
-             .attr("font-family", "sans-serif")
-             .attr("font-size", "11px")
-             .attr("fill", "#B8AA95");
-             // yaxis append
-          svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0, 0)")
-            .call(yAxis);
-        });
-//update
-     d3.select("#click2002")
-        .on("click", function() {
-          usedata = [];
-          usedata = dataset[3];
-          svg.selectAll("circle")
-            .data(usedata)
-             .attr("r", (function(d) {
-                return d*3}))
-              .attr("cx", (function(d, i) { return i*50}))
-              .attr("cy", (function(d){ 
-                // debugger;
-                return yScale(d)}))
-              .attr("class",  "bubble")
-              .on("mouseover", function(){return tooltip.style("visibility", "visible");})
-              .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
-              .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
-          svg.selectAll("text")
-             .data(usedata)
-             .transition() 
-             .duration(2000) 
-             .text(function(d) {
-                return d;
-             })
-             .attr("x", function(d, i) {
-                return xScale(i) + xScale.rangeBand() / 2;
-             })
-             .attr("y", function(d) {
-                return yScale(d);
-             })
-             .attr("font-family", "sans-serif")
-             .attr("font-size", "11px")
-             .attr("fill", "#B8AA95");
-             // yaxis append
-          svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0, 0)")
-            .call(yAxis);
-        });
-
 
 
       // individual label points
