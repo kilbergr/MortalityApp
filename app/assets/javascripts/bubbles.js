@@ -133,7 +133,7 @@ function classes(root) {
     var classes = [];
     function recurse(cause, node) {
         if (node.children) node.children.forEach(function (child) {
-          debugger;
+
             recurse(node.cause, child);
         });
         else classes.push({
@@ -168,7 +168,8 @@ function changebubble(root) {
     var node = svg.selectAll(".node")
         .data(
             bubble.nodes(classes(root)).filter(function (d){return !d.children;}),
-            function(d) {return d.className} // key data based on className to keep object constancy
+            function(d) {
+            return d.className} // key data based on className to keep object constancy
         );
     
     // capture the enter selection
@@ -185,11 +186,10 @@ function changebubble(root) {
         .attr("r", function (d) {return d.r;})
         .style("fill", function (d, i) {return color(i);})
     
-    // re-use enter selection for titles
+    // re-use enter selection for titles 
     nodeEnter
         .append("title")
         .text(function (d) {
-          debugger;
             return d.className + ": " + d.value + "% (" + d.number + " individuals)";
         });
     
@@ -197,12 +197,18 @@ function changebubble(root) {
         .transition().duration(1000)
         .attr("r", function (d) {
             return d.r;
-        });
+        })
+// NEED TO FIGURE OUT HOW TO UPDATE TITLES
+        // .append("title")
+        // .text(function (d) {
+        //     return d.className + ": " + d.value + "% (" + d.number + " individuals)";
+        // });
 
     node.transition().attr("class", "node")
         .attr("transform", function (d) {
         return "translate(" + d.x + "," + d.y + ")";
     });
+
 
     node.exit().remove();
 
@@ -211,6 +217,7 @@ function changebubble(root) {
         var classes = [];
 
         function recurse(cause, node) {
+          // debugger;
             if (node.children) node.children.forEach(function (child) {
                 recurse(node.cause, child);
             });

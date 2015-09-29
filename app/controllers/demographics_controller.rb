@@ -14,10 +14,11 @@ class DemographicsController < ApplicationController
 				@figures = Figure.find_by_sql "SELECT * FROM figures WHERE demographic_id = " + dem.id.to_s
 				@figuresYears.push(@figures)
 			end
-		 end
+		end
+	
 		# add death table to be accessible
-		unless @figures == nil;
-		 	@figures.each do |figure|
+		unless @figuresYears[0] == nil;
+		 	@figuresYears[0].each do |figure|
 		 		@death = Death.find_by_sql "SELECT * FROM deaths WHERE id = " + figure.death_id.to_s
 				@deaths.push(@death[0])
 			end
