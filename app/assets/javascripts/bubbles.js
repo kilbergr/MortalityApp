@@ -1,3 +1,4 @@
+
 var getDeathCause = function(death_id){
   for(var i = 0; i<gon.deaths.length; i++){
     if (death_id == gon.deaths[i].id){
@@ -113,7 +114,7 @@ var node = svg.selectAll(".node")
 
 node.append("title")
     .text(function (d) {
-    return d.className + ": " + d.value + "%";
+    return d.className + ": " + d.value + "% (" + d.number + " individuals)";
 });
 
 node.append("circle")
@@ -132,10 +133,11 @@ function classes(root) {
     var classes = [];
     function recurse(cause, node) {
         if (node.children) node.children.forEach(function (child) {
+          debugger;
             recurse(node.cause, child);
         });
         else classes.push({
-            packageName: cause,
+            number: node.number,
             className: node.cause,
             value: node.percent
         });
@@ -188,16 +190,13 @@ function changebubble(root) {
         .append("title")
         .text(function (d) {
           debugger;
-            return d.className + ": " + d.value + "%";
+            return d.className + ": " + d.value + "% (" + d.number + " individuals)";
         });
     
     node.select("circle")
         .transition().duration(1000)
         .attr("r", function (d) {
             return d.r;
-        })
-        .style("fill", function (d, i) {
-            return color(i);
         });
 
     node.transition().attr("class", "node")
@@ -216,7 +215,7 @@ function changebubble(root) {
                 recurse(node.cause, child);
             });
             else classes.push({
-                packageName: cause,
+                number: node.number,
                 className: node.cause,
                 value: node.percent
             });
