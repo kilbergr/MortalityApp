@@ -41,7 +41,9 @@
 <button id="click2001">2001</button>
 <button id="click2002">2002</button>
 <% unless params[:q]==nil  %>
-<svg class="circle"></svg>
+
+	<div id="simpleChart"></div>
+<!-- <svg class="circle"></svg> -->
 <% end %>
 <%=search_form_for @search do |f|  %>
 
@@ -63,7 +65,6 @@
 	<% end %>
 
 
-	<div id="simpleChart"></div>
 	<div class="slider"></div>
 	<div id = "map"></div>
 
