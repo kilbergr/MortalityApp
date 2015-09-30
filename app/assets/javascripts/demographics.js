@@ -1,143 +1,143 @@
-var getData = function(){
-	var dataset = [];
+// var getData = function(){
+// 	var dataset = [];
 	
-// loops add all figure percentages info to dataset grouped by demographic year
-	for (var i = 0; i < gon.figYears.length; i++){
-		var demGroup = [];
-		for (var j = 0; j < gon.figYears[i].length; j++){
-			demGroup.push(gon.figYears[i][j].percent);
-		}
-		dataset.push(demGroup);
-	}
-	return dataset;
-}
-$(document).on('ready page:load', function () {
-  var dataset = getData(),
-  usedata = dataset[dataset.length-1];
+// // loops add all figure percentages info to dataset grouped by demographic year
+// 	for (var i = 0; i < gon.figYears.length; i++){
+// 		var demGroup = [];
+// 		for (var j = 0; j < gon.figYears[i].length; j++){
+// 			demGroup.push(gon.figYears[i][j].percent);
+// 		}
+// 		dataset.push(demGroup);
+// 	}
+// 	return dataset;
+// }
+// $(document).on('ready page:load', function () {
+//   var dataset = getData(),
+//   usedata = dataset[dataset.length-1];
 
-  var width = 1000,
-  height = 500,
-  padding= 20;
+//   var width = 1000,
+//   height = 500,
+//   padding= 20;
   
-  var xScale = d3.scale.ordinal()
-              .domain(d3.range(usedata.length))
-              .rangeRoundBands([0, width], 0.05)
+//   var xScale = d3.scale.ordinal()
+//               .domain(d3.range(usedata.length))
+//               .rangeRoundBands([0, width], 0.05)
 
-  var yScale = d3.scale.linear()
-              .domain([0, d3.max(usedata)])
-              .range([0, height]);
+//   var yScale = d3.scale.linear()
+//               .domain([0, d3.max(usedata)])
+//               .range([0, height]);
 
-  var rScale = d3.scale.linear()
-                     .domain([0, d3.max(usedata, function(d) { return d; })])
-                     .range([2, 5]);
+//   var rScale = d3.scale.linear()
+//                      .domain([0, d3.max(usedata, function(d) { return d; })])
+//                      .range([2, 5]);
 
-  var svg = d3.select("svg").append("svg")
-            .attr("width", width)
-            .attr("height", height);
+//   var svg = d3.select("svg").append("svg")
+//             .attr("width", width)
+//             .attr("height", height);
 
-  var yAxis = d3.svg.axis()
-                .scale(yScale)
-                .orient("right")
-                .ticks(20);
+//   var yAxis = d3.svg.axis()
+//                 .scale(yScale)
+//                 .orient("right")
+//                 .ticks(20);
 
 
-  var circle = svg.selectAll("circle")
-    .data(usedata)
-    .enter()
-    .append("circle")
-      .attr("r", (function(d) {return d*3}))
-      .attr("cx", (function(d, i) { return i*50}))
-      .attr("cy", (function(d){ 
-        // debugger;
-        return yScale(d)}))
-      .attr("class",  "bubble")
+//   var circle = svg.selectAll("circle")
+//     .data(usedata)
+//     .enter()
+//     .append("circle")
+//       .attr("r", (function(d) {return d*3}))
+//       .attr("cx", (function(d, i) { return i*50}))
+//       .attr("cy", (function(d){ 
+//         // debugger;
+//         return yScale(d)}))
+//       .attr("class",  "bubble")
     
-    circle
-        .append("title")
-       .text(function(d) {
-             return d;
-      })
+//     circle
+//         .append("title")
+//        .text(function(d) {
+//              return d;
+//       })
 
 
-      // individual label points
-  svg.selectAll("text")
-       .data(usedata)
-       .enter()
-       .append("text")
-       .text(function(d) {
-          return d;
-       })
-       .attr("x", function(d, i) {
-          return (i * 50)-2;
-       })
-       .attr("y", function(d){return d+10})
-       .attr("font-family", "sans-serif")
-       .attr("font-size", "11px")
-       .attr("fill", "#B8AA95");
-       // yaxis append
-    svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(0, 0)")
-      .call(yAxis);
+//       // individual label points
+//   svg.selectAll("text")
+//        .data(usedata)
+//        .enter()
+//        .append("text")
+//        .text(function(d) {
+//           return d;
+//        })
+//        .attr("x", function(d, i) {
+//           return (i * 50)-2;
+//        })
+//        .attr("y", function(d){return d+10})
+//        .attr("font-family", "sans-serif")
+//        .attr("font-size", "11px")
+//        .attr("fill", "#B8AA95");
+//        // yaxis append
+//     svg.append("g")
+//       .attr("class", "axis")
+//       .attr("transform", "translate(0, 0)")
+//       .call(yAxis);
 
-  var tooltip = d3.select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .data(usedata)
-    .text(function(d){
-        return d;
-      })
-
-
-  var updateData = function(id, num){
+//   var tooltip = d3.select("body")
+//     .append("div")
+//     .style("position", "absolute")
+//     .style("z-index", "10")
+//     .style("visibility", "hidden")
+//     .data(usedata)
+//     .text(function(d){
+//         return d;
+//       })
 
 
+//   var updateData = function(id, num){
 
-    d3.select('#' + id)
-        .on("click", function() {
-          var dataset = getData(),
-          usedata = dataset[num],
-          yScale = d3.scale.linear()
-            .domain([0, d3.max(usedata)])
-            .range([0, height]),
-          yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("right")
-            .ticks(20);
 
-          svg.selectAll("circle")
-          .data(usedata)
-          .transition() 
-          .duration(2000)
-            .attr("r", (function(d) {return d*3}))
-            .attr("cx", (function(d, i) { return i*50}))
-            .attr("cy", (function(d){ return yScale(d)}))
-            .attr("class",  "bubble");
 
-          svg.selectAll("text")
-             .data(usedata)
-             .transition() 
-             .duration(2000) 
-             .text(function(d) { return d;})
-             .attr("x", function(d, i) {return xScale(i) + xScale.rangeBand() / 2;})
-             .attr("y", function(d) { return yScale(d) ;})
-             .attr("font-family", "sans-serif")
-             .attr("font-size", "11px")
-             .attr("fill", "#B8AA95");
-             // yaxis append
-          svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0, 0)")
-            .call(yAxis);
-        });
-  };
+//     d3.select('#' + id)
+//         .on("click", function() {
+//           var dataset = getData(),
+//           usedata = dataset[num],
+//           yScale = d3.scale.linear()
+//             .domain([0, d3.max(usedata)])
+//             .range([0, height]),
+//           yAxis = d3.svg.axis()
+//             .scale(yScale)
+//             .orient("right")
+//             .ticks(20);
 
-  updateData('click1999', 0);
-  updateData('click2000', 1);
-  updateData('click2001', 2);
-  updateData('click2002', 3); 
+//           svg.selectAll("circle")
+//           .data(usedata)
+//           .transition() 
+//           .duration(2000)
+//             .attr("r", (function(d) {return d*3}))
+//             .attr("cx", (function(d, i) { return i*50}))
+//             .attr("cy", (function(d){ return yScale(d)}))
+//             .attr("class",  "bubble");
+
+//           svg.selectAll("text")
+//              .data(usedata)
+//              .transition() 
+//              .duration(2000) 
+//              .text(function(d) { return d;})
+//              .attr("x", function(d, i) {return xScale(i) + xScale.rangeBand() / 2;})
+//              .attr("y", function(d) { return yScale(d) ;})
+//              .attr("font-family", "sans-serif")
+//              .attr("font-size", "11px")
+//              .attr("fill", "#B8AA95");
+//              // yaxis append
+//           svg.append("g")
+//             .attr("class", "axis")
+//             .attr("transform", "translate(0, 0)")
+//             .call(yAxis);
+//         });
+//   };
+
+//   updateData('click1999', 0);
+//   updateData('click2000', 1);
+//   updateData('click2001', 2);
+//   updateData('click2002', 3); 
   
 
 
@@ -145,7 +145,7 @@ $(document).on('ready page:load', function () {
 
   // circle.exit().remove();
 
- });
+ // });
 
 
 // var getCause = function(){

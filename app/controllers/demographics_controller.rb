@@ -5,10 +5,10 @@ class DemographicsController < ApplicationController
   	@results = @search.result
   	@search.state_cont = 'Open' && @search.race_cont = 'Open' && @search.sex_cont = 'Open' unless params[:q] 
   	@demographics = @search.result
-  	# remember if you want to have extras re:age, set params[:q]["age_eq"] = "All Ages"
+  
   	@figuresYears = [];
   	@deaths = []
-  	# add figure table to be accessible
+  	# add figure rows to be accessible with gon
   	unless params[:q] == nil 
 	  	@search.result.each do |dem|
 				@figures = Figure.find_by_sql "SELECT * FROM figures WHERE demographic_id = " + dem.id.to_s
@@ -16,7 +16,7 @@ class DemographicsController < ApplicationController
 			end
 		end
 	
-		# add death table to be accessible
+		# add death rows to be accessible with gon
 		unless @figuresYears[0] == nil;
 		 	@figuresYears[0].each do |figure|
 		 		@death = Death.find_by_sql "SELECT * FROM deaths WHERE id = " + figure.death_id.to_s

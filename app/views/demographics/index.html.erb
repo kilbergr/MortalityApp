@@ -1,88 +1,88 @@
 <h1>How Will This All End?</h1>
 <p>We do not know how we will die. </p>
 <p>But we do know how others have. Pinpoint a  demographic, geographic, and historic group to visualize their most common causes of death.</p>
+
+<div id = "map"></div>
+
 <h4>Top Causes of Death for  
-<% unless @demographics[0] == nil %>
+	<% unless @demographics[0] == nil %>
 		for
-	<% if @demographics[0].race == "All Races" %>
-	<%= " all races of" %>
-	<% else %>
-	<%= @demographics[0].race  %> 
+		<% if @demographics[0].race == "All Races" %>
+		<%= " all races of" %>
+		<% else %>
+		<%= @demographics[0].race  %> 
+		<% end %>
+
+		<% if @demographics[0].ethnicity == "All" %>
+		<%= "Hispanic and Non-Hispanic" %>
+		<% else %>
+		<%= @demographics[0].ethnicity %>
+		<% end %>
+
+		<% if @demographics[0].sex == "Both Sexes" %>
+		<%= "Males and Females"%>
+		<% else %>
+		<%= @demographics[0].sex %>
+		<% end%>
+		<% if @demographics[0].age == "<1" %>
+		<%= "less than 1 year old" %>
+		<% elsif @demographics[0].age == "All Ages" %>
+		<%= "of All Ages" %>
+		<% else %>
+		<%= @demographics[0].age + " Years Old" %>
+		<% end %>
+		from 
+		<% if @demographics[0].state == "United States" %>
+		<%= "the United States" %>
+		<% else %>
+		<%= @demographics[0].state%>.
+		<% end %>
+	<% end %></h4>
+	<button id="click1999">1999</button>
+	<button id="click2000">2000</button>
+	<button id="click2001">2001</button>
+	<button id="click2002">2002</button>
+	<button id="click2003">2003</button>
+	<button id="click2004">2004</button>
+	<button id="click2005">2005</button>
+	<button id="click2006">2006</button>
+	<button id="click2007">2007</button>
+	<button id="click2008">2008</button>
+	<button id="click2009">2009</button>
+	<button id="click2010">2010</button>
+	<button id="click2011">2011</button>
+	<button id="click2012">2012</button>
+	<button id="click2013">2013</button>
+	<% unless params[:q]==nil  %>
+		<div id="simpleChart"></div>
 	<% end %>
+	<%=search_form_for @search do |f|  %>
 
-	<% if @demographics[0].ethnicity == "All" %>
-	<%= "Hispanic and Non-Hispanic" %>
-	<% else %>
-	<%= @demographics[0].ethnicity %>
-	<% end %>
+		<div>
+			<%= f.label :state_eq, "State" %>
+			<%= f.select :state_eq, options_for_select(['United States', 'Northeast', 'Midwest', 'South', 'West', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Mississippi', 'Missouri', 'New York', 'Pennsylvania', 'Rhode Island', 'South Dakota', 'Tennessee', 'Texas', 'Virginia', 'Wisconsin', 'Wyoming' ]) %> 
+			<%= f.label :race_eq, "Race:" %>
+			<%= f.select :race_eq, options_for_select([['All', 'All Races'], ['White', 'White'],['Black', 'Black'], ['American Indian or Alaska Native','Am Indian/AK Native'], ['Asian or Pacific Islander', 'Asian/Pac Islander'], ['All Others', 'Other Races']]) %>
+			<%= f.label(:ethnicity_eq, "Hispanic Origin:") %>
+			<%= f.select(:ethnicity_eq, options_for_select(['All', 'Non-Hispanic', 'Hispanic'])) %>
+			<%= f.label(:sex_eq, "Sex:") %>
+			<%= f.select(:sex_eq, options_for_select([['All', 'Both Sexes'], ['Female', 'Females'],['Male', 'Males']])) %>
+			<%= f.label(:age_eq, "Age:") %>
+			<%= f.select(:age_eq, options_for_select([['All', 'All Ages'], ['Less than 1 year', '<1'],['5-9 years old', '5-9'],['10-15 years old', '10-14'],['15-24 years old', '15-24'],['25-34 years old', '25-34'],['35-44 years old', '35-44'],['45-54 years old', '45-54'],['55-64 years old', '55-64'],['65-74 years old', '65-74'],['75-84 years old', '75-84'],['Over 85 years old', '85+']])) %>
 
-	<% if @demographics[0].sex == "Both Sexes" %>
-	<%= "Males and Females"%>
-	<% else %>
-	<%= @demographics[0].sex %>
-	<% end%>
-	<% if @demographics[0].age == "<1" %>
-	<%= "less than 1 year old" %>
-	<% elsif @demographics[0].age == "All Ages" %>
-	<%= "of All Ages" %>
-	<% else %>
-	<%= @demographics[0].age + " Years Old" %>
-	<% end %>
+			<%= f.submit("Search") %>
 
-	from 
-	<% if @demographics[0].state == "United States" %>
-	<%= "the United States" %>
-	<% else %>
-	<%= @demographics[0].state%>.
-	<% end %>
-<% end %></h4>
-<button id="click1999">1999</button>
-<button id="click2000">2000</button>
-<button id="click2001">2001</button>
-<button id="click2002">2002</button>
-<button id="click2003">2003</button>
-<button id="click2004">2004</button>
-<button id="click2005">2005</button>
-<button id="click2006">2006</button>
-<button id="click2007">2007</button>
-<button id="click2008">2008</button>
-<button id="click2009">2009</button>
-<button id="click2010">2010</button>
-<button id="click2011">2011</button>
-<button id="click2012">2012</button>
-<button id="click2013">2013</button>
-<% unless params[:q]==nil  %>
-
-	<div id="simpleChart"></div>
-<!-- <svg class="circle"></svg> -->
-<% end %>
-<%=search_form_for @search do |f|  %>
-
-	<div>
-		<%= f.label :state_eq, "State" %>
-		<%= f.select :state_eq, options_for_select(['United States', 'Northeast', 'Midwest', 'South', 'West', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Mississippi', 'Missouri', 'New York', 'Pennsylvania', 'Rhode Island', 'South Dakota', 'Tennessee', 'Texas', 'Virginia', 'Wisconsin', 'Wyoming' ]) %> 
-		<%= f.label :race_eq, "Race:" %>
-    <%= f.select :race_eq, options_for_select([['All', 'All Races'], ['White', 'White'],['Black', 'Black'], ['American Indian or Alaska Native','Am Indian/AK Native'], ['Asian or Pacific Islander', 'Asian/Pac Islander'], ['All Others', 'Other Races']]) %>
-    <%= f.label(:ethnicity_eq, "Hispanic Origin:") %>
-    <%= f.select(:ethnicity_eq, options_for_select(['All', 'Non-Hispanic', 'Hispanic'])) %>
-    <%= f.label(:sex_eq, "Sex:") %>
-    <%= f.select(:sex_eq, options_for_select([['All', 'Both Sexes'], ['Female', 'Females'],['Male', 'Males']])) %>
-    <%= f.label(:age_eq, "Age:") %>
-    <%= f.select(:age_eq, options_for_select([['All', 'All Ages'], ['Less than 1 year', '<1'],['5-9 years old', '5-9'],['10-15 years old', '10-14'],['15-24 years old', '15-24'],['25-34 years old', '25-34'],['35-44 years old', '35-44'],['45-54 years old', '45-54'],['55-64 years old', '55-64'],['65-74 years old', '65-74'],['75-84 years old', '75-84'],['Over 85 years old', '85+']])) %>
-
-	 	<%= f.submit("Search") %>
-
-	</div>
+		</div>
 	<% end %>
 
 
 	<div class="slider"></div>
-	<div id = "map"></div>
+	
 
 
 	<% unless params[:q]==nil  %>
-		<h3>CHOSEN DEMOGRAPHIC:</h3>
-		<% @demographics.each do |demographic| %>
+	<h3>CHOSEN DEMOGRAPHIC:</h3>
+	<% @demographics.each do |demographic| %>
 		<div>
 			State Chosen: <%= demographic.state %>
 			Race Chosen: <%= demographic.race%>
@@ -93,27 +93,27 @@
 			<strong><%= demographic.id %></strong>
 
 		</div>
-		<% end %>
+	<% end %>
 
 
-		<h3>Associated Figures</h3>
-		<% @figuresYears.each do |year| %>
-		<div>
-			<% year.each do |figure| %>
+	<h3>Associated Figures</h3>
+	<% @figuresYears.each do |year| %>
+	<div>
+		<% year.each do |figure| %>
 
-				Number: <%= figure.number %>
-				Percentage: <%= figure.percent %>
-				Dem_id: <%= figure.demographic_id %>
-				Death_id: <%= figure.death_id %>
-				ID: <%= figure.id %>
-				<strong>Death ID: <%= figure.death_id %></strong>
-					<% @deaths.each do |death| %>
-						<% if figure.death_id == death.id %>
-							CAUSE: (<%= death.cause %>)
-						<% end %>
-					<% end %>
+			Number: <%= figure.number %>
+			Percentage: <%= figure.percent %>
+			Dem_id: <%= figure.demographic_id %>
+			Death_id: <%= figure.death_id %>
+			ID: <%= figure.id %>
+			<strong>Death ID: <%= figure.death_id %></strong>
+			<% @deaths.each do |death| %>
+				<% if figure.death_id == death.id %>
+				CAUSE: (<%= death.cause %>)
 				<% end %>
-			</div>
+			<% end %>
 		<% end %>
+	</div>
+	<% end %>
 	<% end %>
 
