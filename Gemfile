@@ -28,7 +28,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+# semantic ui
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 # dotenv
 gem 'dotenv-rails'
 # Use ActiveModel has_secure_password

@@ -272,6 +272,10 @@ node.exit().remove();
 // Mapping
 
 $(document).on('ready page:load', function(){
+
+//   $('.ui.modal')
+//   .modal('show')
+// ;
    var map = new Datamap({
         element: document.getElementById('map'),
         scope: 'usa',
@@ -297,7 +301,9 @@ $(document).on('ready page:load', function(){
    d3.select(window).on('resize', function() {
         map.resize();
     });
-  // map.labels({labelColor: 'blue', fontSize: 12});
+
+          //   datamap.svg.selectAll('.datamaps-subunit').on('click', showDeaths())
+          // },
 
 //   var width = 800, 
 //   height = 700; 
