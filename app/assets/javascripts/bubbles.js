@@ -272,46 +272,73 @@ node.exit().remove();
 // Mapping
 
 $(document).on('ready page:load', function(){
-  var width = 800, 
-  height = 700; 
-  var projection = d3.geo.mercator()
-    .center([-100, 35.4])
-    .scale(500)
-    .translate([width / 2, height / 2]);
+   var map = new Datamap({
+        element: document.getElementById('map'),
+        scope: 'usa',
+        fills: {
+            defaultFill: '#FFCFAD'
+        },
+        height: 300,
+        width: 500,
+        responsive: true,
+        done: function(datamap) {
+            datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+                alert(geography.properties.name);
+            })
+          },
+        geographyConfig: {
+          borderWidth: 1,
+          borderColor: '#5E5A54',
+          highlightFillColor: '#B8AA95',
+          highlightBorderColor: '#E6D1B1',
+          highlightBorderWidth: 1
+        }
+    });
+   d3.select(window).on('resize', function() {
+        map.resize();
+    });
+  // map.labels({labelColor: 'blue', fontSize: 12});
 
-  // var projection = d3.geo.mercator().scale(220); 
+//   var width = 800, 
+//   height = 700; 
+//   var projection = d3.geo.mercator()
+//     .center([-100, 35.4])
+//     .scale(500)
+//     .translate([width / 2, height / 2]);
 
-  var path = d3.geo.path().projection(projection); 
+//   // var projection = d3.geo.mercator().scale(220); 
 
-  var svg = d3.select("#map").append("svg")
-            .attr("width", width)
-            .attr("height", height); 
+//   var path = d3.geo.path().projection(projection); 
 
-  // var test = 0;
-  // var countByName = d3.map();
-  var g = svg.append("g");
+//   var svg = d3.select("#map").append("svg")
+//             .attr("width", width)
+//             .attr("height", height); 
 
-   queue()
-    .defer(d3.json, "us.json") 
-    .await(ready);
-function ready(error, world, locations) { 
-  console.log(world) 
+//   // var test = 0;
+//   // var countByName = d3.map();
+//   var g = svg.append("g");
 
-   g.selectAll(".states")
-      .data(topojson.feature(world, world.objects.states).features)
-    .enter().append("path")
-      .attr("class", function(d) { 
-        return "subunit " + d.id.toLowerCase(); })
-      .attr("d", path);
+//    queue()
+//     .defer(d3.json, "us.json") 
+//     .await(ready);
+// function ready(error, world, locations) { 
+//   console.log(world) 
 
-   g.append("path") .datum(topojson.mesh(world, world.objects.states, function(a, b) { return a !== b })) 
-      .attr("d", path) 
-      .attr("class", "subunit-boundary"); 
+//    g.selectAll(".states")
+//       .data(topojson.feature(world, world.objects.states).features)
+//     .enter().append("path")
+//       .attr("class", function(d) { 
+//         return "subunit " + d.id.toLowerCase(); })
+//       .attr("d", path);
 
-      g.append("path") .datum(topojson.mesh(world, world.objects.states, function(a, b) { return a == b })) 
-      .attr("d", path) 
-      .attr("class", "subunit-boundary"); 
-  };
+//    g.append("path") .datum(topojson.mesh(world, world.objects.states, function(a, b) { return a !== b })) 
+//       .attr("d", path) 
+//       .attr("class", "subunit-boundary"); 
+
+//       g.append("path") .datum(topojson.mesh(world, world.objects.states, function(a, b) { return a == b })) 
+//       .attr("d", path) 
+//       .attr("class", "subunit-boundary"); 
+//   };
 });
 // var root = {
 // "age":"All Ages",
