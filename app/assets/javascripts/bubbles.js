@@ -1,4 +1,249 @@
+var stateNames = [{
+        "name": "Alabama",
+        "abbreviation": "AL"
+    },
+    {
+        "name": "Alaska",
+        "abbreviation": "AK"
+    },
+    {
+        "name": "Arizona",
+        "abbreviation": "AZ"
+    },
+    {
+        "name": "Arkansas",
+        "abbreviation": "AR"
+    },
+    {
+        "name": "California",
+        "abbreviation": "CA"
+    },
+    {
+        "name": "Colorado",
+        "abbreviation": "CO"
+    },
+    {
+        "name": "Connecticut",
+        "abbreviation": "CT"
+    },
+    {
+        "name": "Delaware",
+        "abbreviation": "DE"
+    },
+    {
+        "name": "District Of Columbia",
+        "abbreviation": "DC",
+    },
+    {
+        "name": "Florida",
+        "abbreviation": "FL"
+    },
+    {
+        "name": "Georgia",
+        "abbreviation": "GA"
+    },
+    {
+        "name": "Hawaii",
+        "abbreviation": "HI"
+    },
+    {
+        "name": "Idaho",
+        "abbreviation": "ID"
+    },
+    {
+        "name": "Illinois",
+        "abbreviation": "IL"
+    },
+    {
+        "name": "Indiana",
+        "abbreviation": "IN"
+    },
+    {
+        "name": "Iowa",
+        "abbreviation": "IA"
+    },
+    {
+        "name": "Kansas",
+        "abbreviation": "KS"
+    },
+    {
+        "name": "Kentucky",
+        "abbreviation": "KY"
+    },
+    {
+        "name": "Louisiana",
+        "abbreviation": "LA"
+    },
+    {
+        "name": "Maine",
+        "abbreviation": "ME"
+    },
+    {
+        "name": "Maryland",
+        "abbreviation": "MD"
+    },
+    {
+        "name": "Massachusetts",
+        "abbreviation": "MA"
+    },
+    {
+        "name": "Michigan",
+        "abbreviation": "MI"
+    },
+    {
+        "name": "Minnesota",
+        "abbreviation": "MN"
 
+    },
+    {
+        "name": "Mississippi",
+        "abbreviation": "MS"
+    },
+    {
+        "name": "Missouri",
+        "abbreviation": "MO"
+    },
+    {
+        "name": "Montana",
+        "abbreviation": "MT"
+    },
+    {
+        "name": "Nebraska",
+        "abbreviation": "NE"
+    },
+    {
+        "name": "Nevada",
+        "abbreviation": "NV"
+    },
+    {
+        "name": "New Hampshire",
+        "abbreviation": "NH"
+    },
+    {
+        "name": "New Jersey",
+        "abbreviation": "NJ"
+    },
+    {
+        "name": "New Mexico",
+        "abbreviation": "NM"
+    },
+    {
+        "name": "New York",
+        "abbreviation": "NY"
+    },
+    {
+        "name": "North Carolina",
+        "abbreviation": "NC"
+    },
+    {
+        "name": "North Dakota",
+        "abbreviation": "ND"
+    },
+    {
+        "name": "Ohio",
+        "abbreviation": "OH"
+    },
+    {
+        "name": "Oklahoma",
+        "abbreviation": "OK"
+    },
+    {
+        "name": "Oregon",
+        "abbreviation": "OR"
+    },
+    {
+        "name": "Pennsylvania",
+        "abbreviation": "PA"
+    },
+    {
+        "name": "Rhode Island",
+        "abbreviation": "RI"
+    },
+    {
+        "name": "South Carolina",
+        "abbreviation": "SC"
+    },
+    {
+        "name": "South Dakota",
+        "abbreviation": "SD"
+    },
+    {
+        "name": "Tennessee",
+        "abbreviation": "TN"
+    },
+    {
+        "name": "Texas",
+        "abbreviation": "TX"
+    },
+    {
+        "name": "Utah",
+        "abbreviation": "UT"
+    },
+    {
+        "name": "Vermont",
+        "abbreviation": "VT"
+    },
+    {
+        "name": "Virginia",
+        "abbreviation": "VA"
+    },
+    {
+        "name": "Washington",
+        "abbreviation": "WA"
+    },
+    {
+        "name": "West Virginia",
+        "abbreviation": "WV"
+    },
+    {
+        "name": "Wisconsin",
+        "abbreviation": "WI"
+    },
+    {
+        "name": "Wyoming",
+        "abbreviation": "WY"
+    }
+]
+var matchState = function(abbr, stateArr){
+  for (var i = 0; i < stateArr.length; i++){
+    if (abbr == stateArr[i].abbreviation){
+      return stateArr[i].name;
+    }
+  }
+};
+// Map
+$(document).on('ready page:load', function(){
+
+  var map = new Datamap({
+    element: document.getElementById('map'),
+    scope: 'usa',
+    fills: {
+      defaultFill: '#FFCFAD'
+    },
+    height: 300,
+    width: 500,
+    responsive: true,
+    done: function(datamap) {
+      // adding the modal and finding the state chosen
+      datamap.svg.selectAll('.datamaps-subunit').on('click', function(){
+        var state = matchState(this.classList[1], stateNames);
+        modal = $(this).attr('data-modal');
+        $('#pick').modal('show');
+        debugger;
+      })
+    },
+    geographyConfig: {
+      borderWidth: 1,
+      borderColor: '#5E5A54',
+      highlightFillColor: '#B8AA95',
+      highlightBorderColor: '#E6D1B1',
+      highlightBorderWidth: 1
+    }
+  });
+  d3.select(window).on('resize', function() {
+    map.resize();
+  });
+});
 var getDeathCause = function(death_id){
   for(var i = 0; i<gon.deaths.length; i++){
     if (death_id == gon.deaths[i].id){
@@ -251,39 +496,7 @@ node.exit().remove();
   d3.select("#click2012").on("click",updateBubble14);
   d3.select("#click2013").on("click",updateBubble15);
 });
-// Mapping
 
-$(document).on('ready page:load', function(){
-
-//   $('.ui.modal')
-//   .modal('show')
-// ;
-var map = new Datamap({
-  element: document.getElementById('map'),
-  scope: 'usa',
-  fills: {
-    defaultFill: '#FFCFAD'
-  },
-  height: 300,
-  width: 500,
-  responsive: true,
-  done: function(datamap) {
-    datamap.svg.selectAll('.datamaps-subunit').on('click', function(){
-      modal = $(this).attr('data-modal');
-        $('#pick').modal('show')
-    })
-  },
-  geographyConfig: {
-    borderWidth: 1,
-    borderColor: '#5E5A54',
-    highlightFillColor: '#B8AA95',
-    highlightBorderColor: '#E6D1B1',
-    highlightBorderWidth: 1
-  }
-});
-d3.select(window).on('resize', function() {
-  map.resize();
-});
 // function(geography) {
     //   alert(geography.properties.name);
     // }
@@ -330,7 +543,7 @@ d3.select(window).on('resize', function() {
 //       .attr("d", path) 
 //       .attr("class", "subunit-boundary"); 
 //   };
-});
+
 // var root = {
 // "age":"All Ages",
 // "ethnicity":"All",
