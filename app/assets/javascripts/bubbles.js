@@ -220,8 +220,8 @@ $(document).on('ready page:load', function(){
     fills: {
       defaultFill: '#FFCFAD'
     },
-    height: 300,
-    width: 500,
+    height: 400,
+    width: 800,
     responsive: true,
     done: function(datamap) {
       // adding the modal and finding the state chosen
@@ -229,7 +229,9 @@ $(document).on('ready page:load', function(){
         var state = matchState(this.classList[1], stateNames);
         modal = $(this).attr('data-modal');
         $('#pick').modal('show');
-        debugger;
+        $('#q_state_eq option').filter(function(){
+            return $(this).text()==state;
+          }).prop('selected', true);
       })
     },
     geographyConfig: {
@@ -240,9 +242,13 @@ $(document).on('ready page:load', function(){
       highlightBorderWidth: 1
     }
   });
-  d3.select(window).on('resize', function() {
-    map.resize();
-  });
+
+    d3.select(window).on('load', function() {
+        map.resize();
+    });
+    d3.select(window).on('resize', function() {
+        map.resize();
+    });
 });
 var getDeathCause = function(death_id){
   for(var i = 0; i<gon.deaths.length; i++){
