@@ -26,10 +26,21 @@ class DemographicsController < ApplicationController
 		#
 		# @map = File.read("app/assets/javascripts/states.json")
 
+		@data = {
+			demographics: @demographics,
+			deaths: @deaths,
+			figuresYears: @figuresYears
+		};
+		
 		gon.demographics = @demographics
 		gon.deaths = @deaths
 		gon.figYears = @figuresYears
 		
+		# return render :json => @data
+	end
+
+	def shared_params
+
 	end
 
 	def set_search

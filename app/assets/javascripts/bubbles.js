@@ -312,6 +312,17 @@ var bundleCause = function(relFig){
 return byYear;
 }
 
+// JSON handling of query
+$(document).on('ready page:load', function(){
+  $("#form_id").submit(function(e){
+    e.preventDefault();
+    
+    return false;
+  })
+});
+
+
+
 // Cluster bubbles
 $(document).on('ready page:load', function(){
   dataset = getDataCluster();
