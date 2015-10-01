@@ -316,7 +316,6 @@ return byYear;
 $(document).on('ready page:load', function(){
   $("#form_id").submit(function(e){
     e.preventDefault();
-    
     return false;
   })
 });
@@ -413,7 +412,7 @@ function changebubble(root) {
   .data(
     bubble.nodes(classes(root)).filter(function (d){return !d.children;}),
     function(d) {
-            return d.className} // key data based on className to keep object constancy
+     return d.className} // key data based on className to keep object constancy
             );
 
     // capture the enter selection
@@ -436,17 +435,22 @@ function changebubble(root) {
     .text(function (d) {
       return d.className + ": " + d.value + "% (" + d.number + " individuals)";
     });
+
+    svg.selectAll("title")
+      .data((bubble.nodes(classes(root))
+      .filter(function (d) {
+        return !d.children;
+       })))
+      .text(function(d){
+        return d.className + ": " + d.value + "% (" + d.number + " individuals)";
+      });
     
     node.select("circle")
     .transition().duration(1000)
     .attr("r", function (d) {
       return d.r;
     })
-// NEED TO FIGURE OUT HOW TO UPDATE TITLES
-        // .append("title")
-        // .text(function (d) {
-        //     return d.className + ": " + d.value + "% (" + d.number + " individuals)";
-        // });
+
 
 node.transition().attr("class", "node")
 .attr("transform", function (d) {
