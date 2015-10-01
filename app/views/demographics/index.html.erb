@@ -4,7 +4,9 @@
 <div id = "map"></div>
 <!-- Modal for choosing demographic characteristics -->
 <div id ="pick" class="ui modal">
+<!-- option picker section of modal -->
   <i class="close icon"></i>
+ <div id="options">
   <p>Select Demographic Characteristics</p>
   <%=search_form_for @search, :html => {:id=> "form_id"} do |f|  %>
 
@@ -18,13 +20,14 @@
 			<%= f.select :sex_eq, options_for_select(['Both Sexes', 'Females', 'Males']) %>
 			<%= f.label :age_eq, "Age (in years):" %>
 			<%= f.select :age_eq, options_for_select(['All Ages', '<1', '5-9', '10-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']) %>
-			<%= f.submit "Search"%>
+			<%= f.submit "Search", :id=> "submitMe"%>
 
 		</div>
 	<% end %>
+	</div>
 
-<!-- Change to show when submit is clicked -->
-<div id="bubbles">
+<!-- Bubble viz section -->
+<div id="showBubbles">
 <h4>Top Causes of Death for  
 	<% unless @demographics[0] == nil %>
 		for
@@ -76,6 +79,7 @@
 	<button id="click2013">2013</button>
 	<% unless params[:q]==nil  %>
 		<div id="simpleChart"></div>
+		<button id="changeDem">Change Characteristics</button>
 </div>
 	<% end %>
 </div>

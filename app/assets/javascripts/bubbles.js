@@ -229,7 +229,6 @@ $(document).on('ready page:load', function(){
         var state = matchState(this.classList[1], stateNames);
         modal = $(this).attr('data-modal');
         $('#pick').modal('show');
-       
         q_state_eq.value = state;
         // $('#q_state_eq').filter(function(){
         //     return $(this).text()==state;
@@ -287,7 +286,7 @@ var bundleCause = function(relFig){
 
  // structure here is :
  // byDem.byYear.children.data
- // MaleGeorgianHispanicAllAges.1999.children = [{cause: malignant neoplasm, percent: 19, number: 342}]
+ // MaleGeorgianHispanicAllAges.1999.children = [{cause: malignant neoplasm, percent: 19, number: 342}] etc
  var byYear = [];
 
 // loops add all figure percentages info to dataset grouped by demographic year
@@ -315,6 +314,21 @@ var bundleCause = function(relFig){
 return byYear;
 }
 
+// 
+$(document).on('ready page:load', function(){
+  $("#submitMe").on("click", function(e){
+    e.preventDefault();
+    $("#form_id").css('display', 'none');
+    $("#showBubbles").css('display', 'block');
+   })
+
+  $("#changeDem").on("click", function(e){
+    e.preventDefault();
+    $("form_id").css('display', 'block');
+  })
+});
+
+ 
 // JSON handling of query
 $(document).on('ready page:load', function(){
   $("#form_id").submit(function(e){
