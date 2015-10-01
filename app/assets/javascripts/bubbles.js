@@ -229,9 +229,12 @@ $(document).on('ready page:load', function(){
         var state = matchState(this.classList[1], stateNames);
         modal = $(this).attr('data-modal');
         $('#pick').modal('show');
-        $('#q_state_eq option').filter(function(){
-            return $(this).text()==state;
-          }).prop('selected', true);
+       
+        q_state_eq.value = state;
+        // $('#q_state_eq').filter(function(){
+        //     return $(this).text()==state;
+        //   })
+        // .prop('selected', true);
       })
     },
     geographyConfig: {
@@ -318,12 +321,11 @@ $(document).on('ready page:load', function(){
     e.preventDefault();
     var state = $("#q_state_eq").val().split(" ").join("+"),
     race = $("#q_race_eq").val().split(" ").join("+"),
-    ethnicity = $("#q_state_eq").val().split(" ").join("+"),
-    sex = $("#q_race_eq").val().split(" ").join("+"),
-    age = $("#q_race_eq").val().split(" ").join("+");
+    ethnicity = $("#q_ethnicity_eq").val().split(" ").join("+"),
+    sex = $("#q_sex_eq").val().split(" ").join("+"),
+    age = $("#q_age_eq").val().split(" ").join("+");
    $.get("index?utf8=✓&q%5Bstate_eq%5D=" + state + "&q%5Brace_eq%5D=" + race + "&q%5Bethnicity_eq%5D=" + ethnicity + "&q%5Bsex_eq%5D=" + sex + "&q%5Bage_eq%5D=" + age + "&commit=Search", function(data){
-   
-    // debugger;
+    return data;
    })
     return false;
   })

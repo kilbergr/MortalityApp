@@ -9,7 +9,7 @@
   <%=search_form_for @search, :html => {:id=> "form_id"} do |f|  %>
 
 		<div>
-			<%= f.select :state_eq, options_for_select(['United States', 'Northeast', 'Midwest', 'South', 'West', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Mississippi', 'Missouri', 'New York', 'Pennsylvania', 'Rhode Island', 'South Dakota', 'Tennessee', 'Texas', 'Virginia', 'Wisconsin', 'Wyoming',]) %> 
+			<input type="hidden" id="q_state_eq" value="">
 			<%= f.label :race_eq, "Race:" %>
 			<%= f.select :race_eq, options_for_select(['All Races', 'White', 'Black', 'Am Indian/AK Native', 'Asian/Pac Islander', 'Other Races']) %>
 			<%= f.label :ethnicity_eq, "Hispanic Origin:" %>
@@ -22,8 +22,9 @@
 
 		</div>
 	<% end %>
-</div>
 
+<!-- Change to show when submit is clicked -->
+<div id="bubbles">
 <h4>Top Causes of Death for  
 	<% unless @demographics[0] == nil %>
 		for
@@ -75,7 +76,10 @@
 	<button id="click2013">2013</button>
 	<% unless params[:q]==nil  %>
 		<div id="simpleChart"></div>
+</div>
 	<% end %>
+</div>
+
 
 	<div class="slider"></div>
 	

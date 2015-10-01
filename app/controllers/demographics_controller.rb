@@ -35,8 +35,9 @@ class DemographicsController < ApplicationController
 		gon.demographics = @demographics
 		gon.deaths = @deaths
 		gon.figYears = @figuresYears
-		
-	   # render :json => @data
+		 # return :json => @data
+	  
+
 	end
 
 	def shared_params
