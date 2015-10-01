@@ -1,7 +1,7 @@
 class DemographicsController < ApplicationController
- 	before_filter :set_search
  
   def index
+  	@search=Demographic.search(params[:q])
   	@results = @search.result
   	@search.state_cont = 'Open' && @search.race_cont = 'Open' && @search.sex_cont = 'Open' unless params[:q] 
   	@demographics = @search.result
@@ -31,20 +31,16 @@ class DemographicsController < ApplicationController
 			deaths: @deaths,
 			figuresYears: @figuresYears
 		};
-		
+
 		gon.demographics = @demographics
 		gon.deaths = @deaths
 		gon.figYears = @figuresYears
 		
-		# return render :json => @data
+	   # render :json => @data
 	end
 
 	def shared_params
 
-	end
-
-	def set_search
-		@search=Demographic.search(params[:q])
 	end
 
 end

@@ -316,6 +316,15 @@ return byYear;
 $(document).on('ready page:load', function(){
   $("#form_id").submit(function(e){
     e.preventDefault();
+    var state = $("#q_state_eq").val().split(" ").join("+"),
+    race = $("#q_race_eq").val().split(" ").join("+"),
+    ethnicity = $("#q_state_eq").val().split(" ").join("+"),
+    sex = $("#q_race_eq").val().split(" ").join("+"),
+    age = $("#q_race_eq").val().split(" ").join("+");
+   $.get("index?utf8=✓&q%5Bstate_eq%5D=" + state + "&q%5Brace_eq%5D=" + race + "&q%5Bethnicity_eq%5D=" + ethnicity + "&q%5Bsex_eq%5D=" + sex + "&q%5Bage_eq%5D=" + age + "&commit=Search", function(data){
+   
+    // debugger;
+   })
     return false;
   })
 });
@@ -362,6 +371,7 @@ $(document).on('ready page:load', function(){
   var node = svg.selectAll(".node")
   .data(bubble.nodes(classes(root))
     .filter(function (d) {
+      debugger;
       return !d.children;
     }))
   .enter().append("g")
@@ -436,24 +446,20 @@ function changebubble(root) {
       return d.className + ": " + d.value + "% (" + d.number + " individuals)";
     });
 
-    svg.selectAll("title")
-      .data((bubble.nodes(classes(root))
-      .filter(function (d) {
-        return !d.children;
-       })))
-      .text(function(d){
-        return d.className + ": " + d.value + "% (" + d.number + " individuals)";
-      });
+
     
     node.select("circle")
     .transition().duration(1000)
     .attr("r", function (d) {
+      debugger;
+      console.log("d.r: " + d.r)
       return d.r;
     })
 
-
 node.transition().attr("class", "node")
+
 .attr("transform", function (d) {
+  console.log("transformed: translate(" + d.x + "," + d.y + ")" )
   return "translate(" + d.x + "," + d.y + ")";
 });
 
