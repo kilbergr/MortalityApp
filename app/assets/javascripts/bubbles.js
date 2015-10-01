@@ -27,7 +27,6 @@ var bundleCause = function(relFig){
      deathData.push(children);
    }
    return deathData;  
-
  }
 
  var getDataCluster = function(){
@@ -37,29 +36,28 @@ var bundleCause = function(relFig){
  // MaleGeorgianHispanicAllAges.1999.children = [{cause: malignant neoplasm, percent: 19, number: 342}]
  var byYear = [];
 
-
 // loops add all figure percentages info to dataset grouped by demographic year
-for (var i = 0; i < gon.figYears.length; i++){
- for (var j = 0; j < gon.figYears[i].length; j++){
-     // create a nest to use in cluster
-     allStats = {};
-     // easier variable to hold relevant figure information
-     relFig = gon.figYears[i][j]
-     // find relevant demographics
-     demInfo = getDemInfo(relFig.demographic_id);
-     allStats.age = demInfo.age;
-     allStats.ethnicity = demInfo.ethnicity;
-     allStats.race = demInfo.race;
-     allStats.sex = demInfo.sex;
-     allStats.state = demInfo.state;
-     allStats.year = demInfo.year;
+  for (var i = 0; i < gon.figYears.length; i++){
+   for (var j = 0; j < gon.figYears[i].length; j++){
+       // create a nest to use in cluster
+       allStats = {};
+       // easier variable to hold relevant figure information
+       relFig = gon.figYears[i][j]
+       // find relevant demographics
+       demInfo = getDemInfo(relFig.demographic_id);
+       allStats.age = demInfo.age;
+       allStats.ethnicity = demInfo.ethnicity;
+       allStats.race = demInfo.race;
+       allStats.sex = demInfo.sex;
+       allStats.state = demInfo.state;
+       allStats.year = demInfo.year;
 
-    // subfunction taking the year with the dem type fetch all possible causes 
-    allStats.children = bundleCause(gon.figYears[i]);
-   //  // add to dataset we're using
-   byYear[allStats.year] = allStats;
- }
-}
+      // subfunction taking the year with the dem type fetch all possible causes 
+      allStats.children = bundleCause(gon.figYears[i]);
+     //  // add to dataset we're using
+     byYear[allStats.year] = allStats;
+   }
+  }
 return byYear;
 }
 
@@ -98,8 +96,7 @@ $(document).on('ready page:load', function(){
   root11 = dataset[2010],
   root12 = dataset[2011],
   root13 = dataset[2012],
-  root14 = dataset[2013]
-  ;
+  root14 = dataset[2013];
 
   var node = svg.selectAll(".node")
   .data(bubble.nodes(classes(root))
@@ -126,9 +123,6 @@ $(document).on('ready page:load', function(){
   });
 
 
-
-// Returns a flattened hierarchy containing all leaf nodes under the root.
-
 function classes(root) {
   var classes = [];
   function recurse(cause, node) {
@@ -150,18 +144,6 @@ function classes(root) {
   }
 
 //d3.select(self.frameElement).style("height", diameter + "px");
-
-
-//My Refer;
-// var click = 0;
-
-// function changevalues() {
-//     click++;
-//     if (click == 1) changebubble(root2);
-//     else if (click == 2) changebubble(root3);
-//     else changebubble(root4);
-
-// }
 
 //update function
 function changebubble(root) {
@@ -276,33 +258,36 @@ $(document).on('ready page:load', function(){
 //   $('.ui.modal')
 //   .modal('show')
 // ;
-   var map = new Datamap({
-        element: document.getElementById('map'),
-        scope: 'usa',
-        fills: {
-            defaultFill: '#FFCFAD'
-        },
-        height: 300,
-        width: 500,
-        responsive: true,
-        done: function(datamap) {
-            datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-                alert(geography.properties.name);
-            })
-          },
-        geographyConfig: {
-          borderWidth: 1,
-          borderColor: '#5E5A54',
-          highlightFillColor: '#B8AA95',
-          highlightBorderColor: '#E6D1B1',
-          highlightBorderWidth: 1
-        }
-    });
-   d3.select(window).on('resize', function() {
-        map.resize();
-    });
-
-          //   datamap.svg.selectAll('.datamaps-subunit').on('click', showDeaths())
+var map = new Datamap({
+  element: document.getElementById('map'),
+  scope: 'usa',
+  fills: {
+    defaultFill: '#FFCFAD'
+  },
+  height: 300,
+  width: 500,
+  responsive: true,
+  done: function(datamap) {
+    datamap.svg.selectAll('.datamaps-subunit').on('click', function(){
+      modal = $(this).attr('data-modal');
+        $('#pick').modal('show')
+    })
+  },
+  geographyConfig: {
+    borderWidth: 1,
+    borderColor: '#5E5A54',
+    highlightFillColor: '#B8AA95',
+    highlightBorderColor: '#E6D1B1',
+    highlightBorderWidth: 1
+  }
+});
+d3.select(window).on('resize', function() {
+  map.resize();
+});
+// function(geography) {
+    //   alert(geography.properties.name);
+    // }
+    //       //   datamap.svg.selectAll('.datamaps-subunit').on('click', showDeaths())
           // },
 
 //   var width = 800, 
