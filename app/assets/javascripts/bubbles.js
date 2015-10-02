@@ -314,19 +314,7 @@ var bundleCause = function(relFig){
 return byYear;
 }
 
-// 
-$(document).on('ready page:load', function(){
-  $("#submitMe").on("click", function(e){
-    e.preventDefault();
-    $("#form_id").css('display', 'none');
-    $("#showBubbles").css('display', 'block');
-   })
 
-  $("#changeDem").on("click", function(e){
-    e.preventDefault();
-    $("form_id").css('display', 'block');
-  })
-});
 
  
 // JSON handling of query
@@ -338,17 +326,34 @@ $(document).on('ready page:load', function(){
     ethnicity = $("#q_ethnicity_eq").val().split(" ").join("+"),
     sex = $("#q_sex_eq").val().split(" ").join("+"),
     age = $("#q_age_eq").val().split(" ").join("+");
-   $.get("index?utf8=✓&q%5Bstate_eq%5D=" + state + "&q%5Brace_eq%5D=" + race + "&q%5Bethnicity_eq%5D=" + ethnicity + "&q%5Bsex_eq%5D=" + sex + "&q%5Bage_eq%5D=" + age + "&commit=Search", function(data){
-    return data;
-   })
+   $.getJSON("index?utf8=✓&q%5Bstate_eq%5D=" + state + "&q%5Brace_eq%5D=" + race + "&q%5Bethnicity_eq%5D=" + ethnicity + "&q%5Bsex_eq%5D=" + sex + "&q%5Bage_eq%5D=" + age + "&commit=Search", function(data){
+      gon.demographics = data.demographics;
+      gon.deaths = data.deaths;
+      gon.figYears = data.figuresYears;
+      console.log(gon);
+      clusterBubbles();
     return false;
+   })
+    // return false;
   })
 });
+// 
+// $(document).on('ready page:load', function(){
+//   $("#submitMe").on("click", function(e){
+//     e.preventDefault();
+//     $("#form_id").css('display', 'none');
+//     $("#showBubbles").css('display', 'block');
+//    })
 
+//   $("#changeDem").on("click", function(e){
+//     e.preventDefault();
+//     $("form_id").css('display', 'block');
+//   })
+// });
 
 
 // Cluster bubbles
-$(document).on('ready page:load', function(){
+var clusterBubbles = function(){
   dataset = getDataCluster();
   var diameter = 300,
   format = d3.format(",d");
@@ -538,7 +543,7 @@ node.exit().remove();
   d3.select("#click2011").on("click",updateBubble13);
   d3.select("#click2012").on("click",updateBubble14);
   d3.select("#click2013").on("click",updateBubble15);
-});
+};
 
 // function(geography) {
     //   alert(geography.properties.name);

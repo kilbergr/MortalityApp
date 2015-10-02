@@ -35,13 +35,14 @@ class DemographicsController < ApplicationController
 		gon.demographics = @demographics
 		gon.deaths = @deaths
 		gon.figYears = @figuresYears
-		 # return :json => @data
-	  
+		# binding.pry
 
-	end
-
-	def shared_params
-
+		respond_to do |format|
+			format.html
+			format.json {
+				render json: @data
+			}
+		end
 	end
 
 end
