@@ -344,7 +344,7 @@ $(document).on('ready page:load', function(){
     $("#form_id").css('display', 'none');
     $("#showBubbles").css('display', 'block');
    })
-   
+
 $(document).on('ready page:load', function(){
 
 
@@ -404,7 +404,7 @@ var clusterBubbles = function(){
   .enter().append("g")
   .attr("class", "node")
   .attr("transform", function (d) {
-    return "translate(" + d.x + "," + d.y + ")";
+    return "translate(" + Math.round(d.x) + "," + Math.round(d.y) + ")";
   });
 
   node.append("title")
@@ -414,13 +414,11 @@ var clusterBubbles = function(){
 
   node.append("circle")
   .attr("r", function (d) {
-    return d.r;
+    return Math.round(d.r);
   })
-  .style("fill", function (d) {
-    debugger;
-   return "rgb(" + 22*d.r+ ",18,38)"
-  });
-
+ .style("fill", function (d) {
+    return "hsl(251.8,35.2%," + Math.round(d.r) + "%)";
+    })
 
 function classes(root) {
   var classes = [];
@@ -458,7 +456,7 @@ function changebubble(root) {
     .append("g")
     .attr("class", "node")
     .attr("transform", function (d) {
-      return "translate(" + d.x + "," + d.y + ")";
+      return "translate(" + Math.round(d.x) + "," + Math.round(d.y) + ")";
     });
     
     // re-use enter selection for circles
@@ -466,8 +464,8 @@ function changebubble(root) {
     .append("circle")
     .attr("r", function (d) {return d.r;})
     .style("fill", function (d) {
-      debugger;
-      return "rgb(" + 22*d.r+ ",18,38)";})
+    return "hsl(251.8,35.2%," + Math.round(d.r) + "%)";
+    })
     
     // re-use enter selection for titles 
     nodeEnter
@@ -481,19 +479,19 @@ function changebubble(root) {
     node.select("circle")
     .transition().duration(1000)
     .attr("r", function (d) {
-      return d.r;
+      return Math.round(d.r);
     })
 
 node.transition().attr("class", "node")
 
 .attr("transform", function (d) {
-  return "translate(" + d.x + "," + d.y + ")";
+  return "translate(" + Math.round(d.x) + "," + Math.round(d.y) + ")";
 });
 
 
 node.exit()
   .transition()
-  .duration(3000)
+  .duration(300)
   .style('opacity', 0)
   .remove();
 
