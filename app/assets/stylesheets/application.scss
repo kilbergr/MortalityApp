@@ -36,6 +36,33 @@
 // Dark Chalkboard
 // #5E5A54 RGB 94,90,84
 
+
+
+
+// =======================
+// ==== DARK PALETTE ====
+// =======================
+
+// violent violet
+// #392F62 (22,18,38)
+
+// mauve
+// #D1CBDA 
+
+// mom's missing coat
+// #6F6D96
+
+// baby's bath lilac
+// #DDBBFE
+
+// Golden Mellow
+// #F4D24B
+
+// Nearly White
+// #FBFBFC
+
+// #D9DBE5
+
 @import "semantic-ui";
 
 @font-face {
@@ -51,25 +78,38 @@
 }
 
 body {
-	background-color: #FFE4B8;
-	color: #5E5A54;
+	background-color: #392F62;
+	color: #D9DBE5;
   font-family: 'PT Serif', serif;
 }
+
+#blackScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0,0,0 , 0.5);
+}
+
 h1{
   font-family: 'bebas_neueregular', sans-serif;
   letter-spacing: 1px;
+}
 
-}
-.header {
-	background-color: #B8AA95;
-	color: #5E5A54;
-	font-family: 'bebas_neueregular', sans-serif;
-	font-size: 72px;
-    padding: 5%;  
-    margin-left: -5%;
-    margin-right: -3%;
-    text-align: right;
-}
+
+
+// .header {
+// 	background-color: #B8AA95;
+// 	color: #5E5A54;
+// 	font-family: 'bebas_neueregular', sans-serif;
+// 	font-size: 72px;
+//     padding: 5%;  
+//     margin-left: -5%;
+//     margin-right: -3%;
+//     text-align: right;
+// }
 
 .bubble {
   stroke: #B8AA95;

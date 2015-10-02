@@ -218,7 +218,7 @@ $(document).on('ready page:load', function(){
     element: document.getElementById('map'),
     scope: 'usa',
     fills: {
-      defaultFill: '#FFCFAD'
+      defaultFill: '#D9DBE5'
     },
     height: 400,
     width: 800,
@@ -226,6 +226,7 @@ $(document).on('ready page:load', function(){
     done: function(datamap) {
       // adding the modal and finding the state chosen
       datamap.svg.selectAll('.datamaps-subunit').on('click', function(){
+        $("#blackScreen").css('display', 'block');
         var state = matchState(this.classList[1], stateNames);
         modal = $(this).attr('data-modal');
         $('#pick').modal('show');
@@ -238,9 +239,9 @@ $(document).on('ready page:load', function(){
     },
     geographyConfig: {
       borderWidth: 1,
-      borderColor: '#5E5A54',
-      highlightFillColor: '#B8AA95',
-      highlightBorderColor: '#E6D1B1',
+      borderColor: '#6F6D96',
+      highlightFillColor: '#6F6D96',
+      highlightBorderColor: '#D1CBDA',
       highlightBorderWidth: 1
     }
   });
@@ -338,19 +339,24 @@ $(document).on('ready page:load', function(){
   })
 });
 // 
-// $(document).on('ready page:load', function(){
-//   $("#submitMe").on("click", function(e){
-//     e.preventDefault();
-//     $("#form_id").css('display', 'none');
-//     $("#showBubbles").css('display', 'block');
-//    })
+  $("#submitMe").on("click", function(e){
+    e.preventDefault();
+    $("#form_id").css('display', 'none');
+    $("#showBubbles").css('display', 'block');
+   })
+   
+$(document).on('ready page:load', function(){
 
-//   $("#changeDem").on("click", function(e){
-//     e.preventDefault();
-//     $("form_id").css('display', 'block');
-//   })
-// });
 
+  $("#changeDem").on("click", function(e){
+    e.preventDefault();
+    $("#form_id").css('display', 'block');
+  })
+
+  $(".close.icon").on("click", function(){
+    $("#blackScreen").css('display', 'none');
+  })
+})
 
 // Cluster bubbles
 var clusterBubbles = function(){
@@ -358,9 +364,10 @@ var clusterBubbles = function(){
   var diameter = 300,
   format = d3.format(",d");
 
-  var color = d3.scale.ordinal()
-  .domain(["a", "b", "c", "d"])
-  .range(["#FFCFAD", "#E6D1B1", "#B8AA95", "#5E5A54"]);
+  var color = ["#CFCAE6", "#3c355c", "#392F62"]
+  // d3.scale.ordinal()
+  // .domain(["a", "b", "c", "d"])
+  // .range();
 
 
   var bubble = d3.layout.pack()
@@ -392,7 +399,6 @@ var clusterBubbles = function(){
   var node = svg.selectAll(".node")
   .data(bubble.nodes(classes(root))
     .filter(function (d) {
-      debugger;
       return !d.children;
     }))
   .enter().append("g")
@@ -410,8 +416,9 @@ var clusterBubbles = function(){
   .attr("r", function (d) {
     return d.r;
   })
-  .style("fill", function (d, i) {
-    return color(i);
+  .style("fill", function (d) {
+    debugger;
+   return "rgb(" + 22*d.r+ ",18,38)"
   });
 
 
@@ -458,7 +465,9 @@ function changebubble(root) {
     nodeEnter
     .append("circle")
     .attr("r", function (d) {return d.r;})
-    .style("fill", function (d, i) {return color(i);})
+    .style("fill", function (d) {
+      debugger;
+      return "rgb(" + 22*d.r+ ",18,38)";})
     
     // re-use enter selection for titles 
     nodeEnter
@@ -472,20 +481,21 @@ function changebubble(root) {
     node.select("circle")
     .transition().duration(1000)
     .attr("r", function (d) {
-      debugger;
-      console.log("d.r: " + d.r)
       return d.r;
     })
 
 node.transition().attr("class", "node")
 
 .attr("transform", function (d) {
-  console.log("transformed: translate(" + d.x + "," + d.y + ")" )
   return "translate(" + d.x + "," + d.y + ")";
 });
 
 
-node.exit().remove();
+node.exit()
+  .transition()
+  .duration(3000)
+  .style('opacity', 0)
+  .remove();
 
     // Returns a flattened hierarchy containing all leaf nodes under the root.
     function classes(root) {

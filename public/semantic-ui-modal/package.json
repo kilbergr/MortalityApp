@@ -1,0 +1,43 @@
+{
+  "name": "semantic-ui-modal",
+  "version": "2.1.4",
+  "title": "Semantic UI - Modal",
+  "description": "Single component release of modal",
+  "homepage": "http://www.semantic-ui.com",
+  "author": {
+    "name": "Jack Lukic",
+    "email": "jack@semantic-ui.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Semantic-Org/UI-Modal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Semantic-Org/Semantic-UI/issues"
+  },
+  "devDependencies": {},
+  "gitHead": "733055cfe3f955da7a4de33d13d261f5c27a28e6",
+  "_id": "semantic-ui-modal@2.1.4",
+  "scripts": {},
+  "_shasum": "227c7a45e6bb301e7e5d05bceacce6e4fd73afc2",
+  "_from": "semantic-ui-modal@*",
+  "_npmVersion": "2.11.3",
+  "_nodeVersion": "0.12.7",
+  "_npmUser": {
+    "name": "semantic-bot",
+    "email": "bot@semantic-ui.com"
+  },
+  "dist": {
+    "shasum": "227c7a45e6bb301e7e5d05bceacce6e4fd73afc2",
+    "tarball": "http://registry.npmjs.org/semantic-ui-modal/-/semantic-ui-modal-2.1.4.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "semantic-bot",
+      "email": "bot@semantic-ui.com"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/semantic-ui-modal/-/semantic-ui-modal-2.1.4.tgz"
+}
