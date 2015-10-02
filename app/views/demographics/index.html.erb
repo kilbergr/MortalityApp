@@ -12,16 +12,16 @@
   <%=search_form_for @search, :html => {:id=> "form_id"} do |f|  %>
 
 		<div>
-			<input type="hidden" id="q_state_eq" value="">
+			<input type="hidden" id="q_state_eq" class="ui selection dropdown" value="">
 			<%= f.label :race_eq, "Race:" %>
-			<%= f.select :race_eq, options_for_select(['All Races', 'White', 'Black', 'Am Indian/AK Native', 'Asian/Pac Islander', 'Other Races']) %>
+			<%= f.select(:race_eq, ['All Races', 'White', 'Black', 'Am Indian/AK Native', 'Asian/Pac Islander', 'Other Races'], {}, {:class => 'ui selection dropdown'}) %>
 			<%= f.label :ethnicity_eq, "Hispanic Origin:" %>
-			<%= f.select :ethnicity_eq, options_for_select(['All', 'Non-Hispanic', 'Hispanic']) %>
+			<%= f.select(:ethnicity_eq, ['All', 'Non-Hispanic', 'Hispanic'], {}, {:class => 'ui selection dropdown'}) %>
 			<%= f.label :sex_eq, "Sex:" %>
-			<%= f.select :sex_eq, options_for_select(['Both Sexes', 'Females', 'Males']) %>
+			<%= f.select(:sex_eq, ['Both Sexes', 'Females', 'Males'], {}, {:class => 'ui selection dropdown'}) %>
 			<%= f.label :age_eq, "Age (in years):" %>
-			<%= f.select :age_eq, options_for_select(['All Ages', '<1', '5-9', '10-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']) %>
-			<%= f.submit "Search", :id=> "submitMe"%>
+			<%= f.select(:age_eq, ['All Ages', '<1', '5-9', '10-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+'], {}, {:class => 'ui selection dropdown'}) %>
+			<%= f.submit "Search", :id=> "submitMe", :class=>'ui inverted violet button'%>
 
 		</div>
 	<% end %>
