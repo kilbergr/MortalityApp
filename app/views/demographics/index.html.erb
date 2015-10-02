@@ -8,7 +8,7 @@
 <!-- option picker section of modal -->
   <i class="close icon"></i>
  <div id="options">
-  <p>Select Demographic Characteristics</p>
+  <h2>Select Demographic Characteristics</h2>
   <%=search_form_for @search, :html => {:id=> "form_id"} do |f|  %>
 
 		<div>
@@ -78,8 +78,9 @@
 	<button class="ui inverted grey button" id="click2011">2011</button>
 	<button class="ui inverted grey button" id="click2012">2012</button>
 	<button class="ui inverted grey button" id="click2013">2013</button>
+	<button class="ui inverted violet button" id="changeDem">Clear</button>	
 		<div id="simpleChart"></div>
-		<button class="ui inverted grey button" id="changeDem">Change Characteristics</button>
+		
 </div>
 </div>
 

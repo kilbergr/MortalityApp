@@ -331,17 +331,16 @@ $(document).on('ready page:load', function(){
       gon.demographics = data.demographics;
       gon.deaths = data.deaths;
       gon.figYears = data.figuresYears;
-      console.log(gon);
       clusterBubbles();
     return false;
    })
-    // return false;
   })
 });
 // 
   $("#submitMe").on("click", function(e){
     e.preventDefault();
     $("#form_id").css('display', 'none');
+    $('#changeDem').css('display', 'block');
     $("#showBubbles").css('display', 'block');
    })
 
@@ -351,12 +350,20 @@ $(document).on('ready page:load', function(){
   $("#changeDem").on("click", function(e){
     e.preventDefault();
     $("#form_id").css('display', 'block');
+     clearBubbles();
   })
 
   $(".close.icon").on("click", function(){
     $("#blackScreen").css('display', 'none');
+    clearBubbles();
   })
 })
+  // Clear all bubbles
+ var clearBubbles = function(){
+  debugger;
+  d3.selectAll("svg.bubble > *").remove();
+  $("svg.bubble").remove();
+}
 
 // Cluster bubbles
 var clusterBubbles = function(){
@@ -364,7 +371,7 @@ var clusterBubbles = function(){
   var diameter = 300,
   format = d3.format(",d");
 
-  var color = ["#CFCAE6", "#3c355c", "#392F62"]
+  // var color = ["#CFCAE6", "#3c355c", "#392F62"]
   // d3.scale.ordinal()
   // .domain(["a", "b", "c", "d"])
   // .range();

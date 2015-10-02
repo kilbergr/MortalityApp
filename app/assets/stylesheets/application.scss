@@ -65,22 +65,19 @@
 
 @import "semantic-ui";
 
-@font-face {
-    font-family: 'bebas_neueregular';
-    src: url('fonts/bebasneue-webfont.eot');
-    src: url('fonts/bebasneue-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/bebasneue-webfont.woff2') format('woff2'),
-         url('fonts/bebasneue-webfont.woff') format('woff'),
-         url('fonts/bebasneue-webfont.ttf') format('truetype'),
-         url('fonts/bebasneue-webfont.svg#bebas_neueregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
 body {
+  margin: 5px;
+  padding:5px;
 	background-color: #392F62;
 	color: #D9DBE5;
-  font-family: 'PT Serif', serif;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 18px;
+}
+
+p {
+  color: #D9DBE5;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 18px;
 }
 
 #blackScreen {
@@ -94,35 +91,36 @@ body {
 }
 
 h1{
-  font-family: 'bebas_neueregular', sans-serif;
+  color: #D9DBE5;
+  font-family: 'Josefin Sans', sans-serif;
   letter-spacing: 1px;
 }
 
+h2{
+  color: #D9DBE5;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 36px;
+}
 
+h3{
+  color: #D9DBE5;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 28px;
+}
 
-// .header {
-// 	background-color: #B8AA95;
-// 	color: #5E5A54;
-// 	font-family: 'bebas_neueregular', sans-serif;
-// 	font-size: 72px;
-//     padding: 5%;  
-//     margin-left: -5%;
-//     margin-right: -3%;
-//     text-align: right;
-// }
+h4{
+  color: #D9DBE5;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 24px;
+}
 
 .bubble {
   stroke: #B8AA95;
-  // opacity: ;
-}
+ }
 
 #pick {
  padding:30px;
 }
-// .bubble:hover {
-//   fill: #E6D1B1;
-//   stroke: #5E5A54;
-// }
 
 #simpleChart {
   margin-left:30%;
