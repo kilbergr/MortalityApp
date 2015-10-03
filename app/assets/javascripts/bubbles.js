@@ -410,6 +410,7 @@ $(document).on('ready page:load', function(){
 
 // Cluster bubbles
 var clusterBubbles = function(){
+  clearBubbles();
   dataset = getDataCluster();
   var diameter = 300,
   format = d3.format(",d");
