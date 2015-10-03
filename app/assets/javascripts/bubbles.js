@@ -429,12 +429,12 @@ var clusterBubbles = function(){
     .style("position", "absolute")
     .style("z-index", "10")
     .style("visibility", "hidden")
-    .style("color", "white")
+    .style("color", "")
     .style("padding", "8px")
     .style("white-space","pre-wrap")
     .style("background-color", "rgba(0, 0, 0, 0.75)")
     .style("border-radius", "6px")
-    .style("font", "12px sans-serif")
+    .style("font", "14px sans-serif")
     .text("tooltip");
 
   var root = dataset[1999],

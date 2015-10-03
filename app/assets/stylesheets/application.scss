@@ -140,7 +140,7 @@ h4{
 .label{
   color: #D9DBE5;
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 24px;
+  font-size: 18px;
 }
 .bubble {
   stroke: #B8AA95;
@@ -149,23 +149,13 @@ h4{
 
 #pick {
  padding:30px;
+ width: 90%;
+ margin:2%;
 }
 
 #simpleChart {
   margin-left:30%;
 }
-
-.tooltip{
-    color: #D9DBE5;
-    margin:8px;
-    padding:8px;
-    border:1px solid blue;
-    background-color: #eadba4;
-    position: absolute;
-    z-index: 2;
-    font-family: sans-serif;
-    font-size: 24px;
-  }
 
 .subunit-boundary { 
     fill: none; 
