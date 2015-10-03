@@ -361,29 +361,90 @@ return byYear;
 }
 
 
+// format title
+var formatTitle = function(state, age, sex, ethnicity, race){
+  var demArray = []
+    if (race == "All Races") {
+      race = "All races of " 
+      }
+      demArray.push(race); 
+      pushEthnicity(demArray, state, age, sex, ethnicity);
+      return demArray;
+}
+var pushEthnicity = function(demArray, state, age, sex, ethnicity){
+    if (ethnicity == "All"){
+      ethnicity = "Hispanic and Non-Hispanic" ;
+      demArray.push(ethnicity);
+     }
+    else {
+      demArray.push(ethnicity);
+     }
+     pushSex(demArray, state, age, sex);
+}
+var pushSex = function(demArray, state, age, sex){
+  if(sex == "Both Sexes"){
+      sex =  "Males and Females";
+      demArray.push(sex);
+     } 
+  else{demArray.push(sex);}
 
- 
+    pushAge(demArray, state, age);
+
+}
+var pushAge = function(demArray, state, age){
+  if (age == "<1"){
+      age = "less than 1 year old";
+      demArray.push(age);
+     }
+  else if (age == "All Ages" ){
+      age = "of All Ages";
+      demArray.push(age);
+     }
+  else {
+      age = age + " years old ";
+      demArray.push(age);
+     }
+     pushState(demArray, state);
+}
+var pushState = function(demArray, state){
+  if (state == "United States" ){
+      state = "the United States";
+      demArray.push(state);
+     }
+  else {
+      demArray.push(state);
+     }
+  return demArray;
+}    
+     
 // JSON handling of query
 $(document).on('ready page:load', function(){
   $("#form_id").submit(function(e){
     e.preventDefault();
-    var state = $("#q_state_eq").val().split(" ").join("+"),
-    race = $("#q_race_eq").val().split(" ").join("+"),
-    ethnicity = $("#q_ethnicity_eq").val().split(" ").join("+"),
-    sex = $("#q_sex_eq").val().split(" ").join("+"),
-    age = $("#q_age_eq").val().split(" ").join("+");
-   $.getJSON("index?utf8=✓&q%5Bstate_eq%5D=" + state + "&q%5Brace_eq%5D=" + race + "&q%5Bethnicity_eq%5D=" + ethnicity + "&q%5Bsex_eq%5D=" + sex + "&q%5Bage_eq%5D=" + age + "&commit=Search", function(data){
+    var state = $("#q_state_eq").val(),
+    race = $("#q_race_eq").val(),
+    ethnicity = $("#q_ethnicity_eq").val(),
+    sex = $("#q_sex_eq").val(),
+    age = $("#q_age_eq").val();
+    var demArray = formatTitle(state, age, sex, ethnicity, race);  
+   
+    var html = "<div id='title'><h4>Mortality Data for " + demArray[0] +  " " + demArray[1] + " " + demArray[2] + " " + demArray[3] +  " from " + demArray[4] + "</h4></div>";
+    $('#form_id').after(html);
+   $.getJSON("index?utf8=✓&q%5Bstate_eq%5D=" + state.split(" ").join("+") + "&q%5Brace_eq%5D=" + race.split(" ").join("+") + "&q%5Bethnicity_eq%5D=" + ethnicity.split(" ").join("+") + "&q%5Bsex_eq%5D=" + sex.split(" ").join("+") + "&q%5Bage_eq%5D=" + age.split(" ").join("+") + "&commit=Search", function(data){
       gon.demographics = data.demographics;
       gon.deaths = data.deaths;
       gon.figYears = data.figuresYears;
       clusterBubbles();
     return false;
    })
+
   })
 });
 // 
   $("#submitMe").on("click", function(e){
     e.preventDefault();
+    var title = ""
+    ("form_id").prepend(html);
     $("#form_id").css('display', 'none');
     $('#changeDem').css('display', 'block');
     $("#showBubbles").css('display', 'block');
@@ -395,11 +456,13 @@ $(document).on('ready page:load', function(){
     e.preventDefault();
     $("#form_id").css('display', 'block');
      clearBubbles();
+     $('#title').remove();
   })
 
   $(".close.icon").on("click", function(){
     $("#blackScreen").css('display', 'none');
     clearBubbles();
+    $('#title').remove();
   })
 })
   // Clear all bubbles
@@ -530,14 +593,23 @@ function changebubble(root) {
     .style("fill", function (d) {
       return "hsl(47,78%," + Math.round(d.r) + "%)";
     })
+    .on("mouseover", function(d) {
+              tooltip.text(d.className + ": " + d.value + "% (" + d.number + " individuals)");
+              tooltip.style("visibility", "visible");
+      })
+      .on("mousemove", function() {
+          return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+      })
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+
   
     
-    // re-use enter selection for titles 
-    nodeEnter
-    .append("title")
-    .text(function (d) {
-      return d.className + ": " + d.value + "% (" + d.number + " individuals)";
-    })
+    // // re-use enter selection for titles 
+    // nodeEnter
+    // .append("title")
+    // .text(function (d) {
+    //   return d.className + ": " + d.value + "% (" + d.number + " individuals)";
+    // })
     
 
     node.select("circle")

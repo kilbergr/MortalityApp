@@ -7,11 +7,12 @@
 <div id ="pick" class="ui basic modal">
 <!-- option picker section of modal -->
   <i class="close icon"></i>
+  	
  <div id="options">
   <%=search_form_for @search, :html => {:id=> "form_id"} do |f|  %>
 
-		<div>
-			<input type="hidden" id="q_state_eq" class="ui selection dropdown" value="">
+		<div id="searchForm">
+			<input type="hidden" id="q_state_eq" value="">
 			<%= f.label(:race_eq, "Race:", {:class => 'label'}) %>
 			<%= f.select(:race_eq, ['All Races', 'White', 'Black', 'Am Indian/AK Native', 'Asian/Pac Islander', 'Other Races'], {}, {:class => 'ui selection dropdown'}) %>
 			<%= f.label(:ethnicity_eq, "Hispanic Origin:", {:class => 'label'}) %>
@@ -28,40 +29,7 @@
 
 <!-- Bubble viz section -->
 <div id="showBubbles">
-<h4>Top Causes of Death for  
-	<% unless @demographics[0] == nil %>
-		for
-		<% if @demographics[0].race == "All Races" %>
-		<%= " all races of" %>
-		<% else %>
-		<%= @demographics[0].race  %> 
-		<% end %>
-
-		<% if @demographics[0].ethnicity == "All" %>
-		<%= "Hispanic and Non-Hispanic" %>
-		<% else %>
-		<%= @demographics[0].ethnicity %>
-		<% end %>
-
-		<% if @demographics[0].sex == "Both Sexes" %>
-		<%= "Males and Females"%>
-		<% else %>
-		<%= @demographics[0].sex %>
-		<% end%>
-		<% if @demographics[0].age == "<1" %>
-		<%= "less than 1 year old" %>
-		<% elsif @demographics[0].age == "All Ages" %>
-		<%= "of All Ages" %>
-		<% else %>
-		<%= @demographics[0].age + " Years Old" %>
-		<% end %>
-		from 
-		<% if @demographics[0].state == "United States" %>
-		<%= "the United States" %>
-		<% else %>
-		<%= @demographics[0].state%>.
-		<% end %>
-	<% end %></h4>
+ 
 	<button class="ui inverted grey button" id="click1999">1999</button>
 	<button class="ui inverted grey button" id="click2000">2000</button>
 	<button class="ui inverted grey button" id="click2001">2001</button>
@@ -80,48 +48,7 @@
 	<button class="ui inverted violet button" id="changeDem">Clear</button>	
 		<div id="simpleChart"></div>
 		
-</div>
-</div>
-
-
-	<div class="slider"></div>
-	
-
-
-	<% unless params[:q]==nil  %>
-	<h3>CHOSEN DEMOGRAPHIC:</h3>
-	<% @demographics.each do |demographic| %>
-		<div>
-			State Chosen: <%= demographic.state %>
-			Race Chosen: <%= demographic.race%>
-			Sex Chosen: <%= demographic.sex %>
-			Hispanic Origin? <%= demographic.ethnicity %>
-			Age Range Chosen: <%= demographic.age %>
-			Year Chosen: <%= demographic.year %> 
-			<strong><%= demographic.id %></strong>
-
-		</div>
-	<% end %>
-
-
-	<h3>Associated Figures</h3>
-	<% @figuresYears.each do |year| %>
-	<div>
-		<% year.each do |figure| %>
-
-			Number: <%= figure.number %>
-			Percentage: <%= figure.percent %>
-			Dem_id: <%= figure.demographic_id %>
-			Death_id: <%= figure.death_id %>
-			ID: <%= figure.id %>
-			<strong>Death ID: <%= figure.death_id %></strong>
-			<% @deaths.each do |death| %>
-				<% if figure.death_id == death.id %>
-				CAUSE: (<%= death.cause %>)
-				<% end %>
-			<% end %>
-		<% end %>
 	</div>
-	<% end %>
-	<% end %>
+</div>
+	<div class="slider"></div>
 

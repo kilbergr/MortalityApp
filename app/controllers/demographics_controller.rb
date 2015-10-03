@@ -3,7 +3,7 @@ class DemographicsController < ApplicationController
   def index
   	@search=Demographic.search(params[:q])
   	@results = @search.result
-  	@search.state_cont = 'Open' && @search.race_cont = 'Open' && @search.sex_cont = 'Open' unless params[:q] 
+  	@search.state_cont = 'Open' && @search.race_cont = 'Open' && @search.ethnicity_cont = 'Open' && @search.sex_cont = 'Open' && @search.age_cont = 'Open' unless params[:q] 
   	@demographics = @search.result
   
   	@figuresYears = [];
@@ -44,4 +44,7 @@ class DemographicsController < ApplicationController
 		end
 	end
 
+	def show
+  	
+  end
 end
