@@ -58,6 +58,9 @@
 // Golden Mellow
 // #F4D24B
 
+// VALENTINA'S COPPER
+// #e5bf29
+
 // Nearly White
 // #FBFBFC
 
@@ -134,10 +137,14 @@ h4{
   font-family: 'Josefin Sans', sans-serif;
   font-size: 24px;
 }
-
+.label{
+  color: #D9DBE5;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 24px;
+}
 .bubble {
   stroke: #B8AA95;
-  opacity: .7;
+  opacity: .9;
  }
 
 #pick {
@@ -147,6 +154,18 @@ h4{
 #simpleChart {
   margin-left:30%;
 }
+
+.tooltip{
+    color: #D9DBE5;
+    margin:8px;
+    padding:8px;
+    border:1px solid blue;
+    background-color: #eadba4;
+    position: absolute;
+    z-index: 2;
+    font-family: sans-serif;
+    font-size: 24px;
+  }
 
 .subunit-boundary { 
     fill: none; 

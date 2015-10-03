@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+*.sublime-project
+*.sublime-workspace
+bower_components
+rel
+tmp

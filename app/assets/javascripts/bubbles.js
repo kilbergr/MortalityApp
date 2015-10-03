@@ -13,6 +13,29 @@ function rotateTerm() {
 }
 $(rotateTerm);
 
+// (function makeDiv(){
+   
+  
+//     $newdiv = $('<div/>').css({
+//         'width':5+'%',
+//         'height':10+'%',
+//         'background-color': '#FFF'
+//     });
+    
+//     var posx = (Math.random() * ($(document).width() - divsize)).toFixed();
+//     var posy = (Math.random() * ($(document).height() - divsize)).toFixed();
+    
+//     $newdiv.css({
+//         'position':'absolute',
+//         'left':posx+'px',
+//         'top':posy+'px',
+//         'display':'none'
+//     }).appendTo( 'body' ).fadeIn(300).delay(400).fadeOut(300, function(){
+//        $(this).remove();
+//        makeDiv(); 
+//     }); 
+// })();
+
 
 
 // MAIN PAGE JS
@@ -301,6 +324,10 @@ var bundleCause = function(relFig){
    return deathData;  
  }
 
+
+   
+
+
  var getDataCluster = function(){
 
  // structure here is :
@@ -397,6 +424,19 @@ var clusterBubbles = function(){
   .attr("height", diameter)
   .attr("class", "bubble");
 
+  var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .style("color", "white")
+    .style("padding", "8px")
+    .style("white-space","pre-wrap")
+    .style("background-color", "rgba(0, 0, 0, 0.75)")
+    .style("border-radius", "6px")
+    .style("font", "12px sans-serif")
+    .text("tooltip");
+
   var root = dataset[1999],
   root1 = dataset[2000],
   root2 = dataset[2001],
@@ -413,6 +453,7 @@ var clusterBubbles = function(){
   root13 = dataset[2012],
   root14 = dataset[2013];
 
+  // Create nodes
   var node = svg.selectAll(".node")
   .data(bubble.nodes(classes(root))
     .filter(function (d) {
@@ -422,21 +463,26 @@ var clusterBubbles = function(){
   .attr("class", "node")
   .attr("transform", function (d) {
     return "translate(" + Math.round(d.x) + "," + Math.round(d.y) + ")";
-  });
+  }) 
 
-  node.append("title")
-  .text(function (d) {
-    return d.className + ": " + d.value + "% (" + d.number + " individuals)";
-  });
-
+  
   node.append("circle")
   .attr("r", function (d) {
     return Math.round(d.r);
   })
  .style("fill", function (d) {
-    return "hsl(251.8,35.2%," + Math.round(d.r) + "%)";
-    })
+    return "hsl(47,78%," + Math.round(d.r) + "%)";
+  })
+ .on("mouseover", function(d) {
+              tooltip.text(d.className + ": " + d.value + "% (" + d.number + " individuals)");
+              tooltip.style("visibility", "visible");
+      })
+      .on("mousemove", function() {
+          return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+      })
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
+ 
 function classes(root) {
   var classes = [];
   function recurse(cause, node) {
@@ -456,6 +502,8 @@ function classes(root) {
       children: classes
     };
   }
+
+d3.select(self.frameElement).style("height", diameter + "px");
 
 //update function
 function changebubble(root) {
@@ -479,15 +527,17 @@ function changebubble(root) {
     .append("circle")
     .attr("r", function (d) {return d.r;})
     .style("fill", function (d) {
-    return "hsl(251.8,35.2%," + Math.round(d.r) + "%)";
+      return "hsl(47,78%," + Math.round(d.r) + "%)";
     })
+  
     
     // re-use enter selection for titles 
     nodeEnter
     .append("title")
     .text(function (d) {
       return d.className + ": " + d.value + "% (" + d.number + " individuals)";
-    });
+    })
+    
 
     node.select("circle")
     .transition().duration(1000)
@@ -495,11 +545,10 @@ function changebubble(root) {
       return Math.round(d.r);
     })
 
-node.transition().attr("class", "node")
-
-.attr("transform", function (d) {
-  return "translate(" + Math.round(d.x) + "," + Math.round(d.y) + ")";
-});
+    node.transition().attr("class", "node")
+    .attr("transform", function (d) {
+      return "translate(" + Math.round(d.x) + "," + Math.round(d.y) + ")";
+    });
 
 
 node.exit()
