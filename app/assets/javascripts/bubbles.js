@@ -1,3 +1,21 @@
+// LANDING PAGE JS
+var terms = ["Heart disease", "Cancer", "Chronic lower respiratory diseases", "Unintentional injuries (accidents)", "Cerebrovascular diseases (stroke)", "Alzheimer's disease", "Influenza and Pneumonia", "Nephritis, nephrotic syndrome, and nephrosis", "Intentional self-harm (suicide)", "Death, Be Not Unknown" ];
+
+function rotateTerm() {
+  var ct = $("#rotate").data("term") || 0;
+   if (ct < terms.length-1) {
+  $("#rotate").data("term", ct == terms.length -1 ? 0 : ct + 1).text(terms[ct]).fadeIn(400)
+              .delay(2000).fadeOut(1200, rotateTerm);
+   }
+    else if (ct == terms.length-1) {
+  $("#rotate").data("term", ct == terms.length -1 ? 0 : ct + 1).text(terms[ct]).fadeIn(400);
+    }
+}
+$(rotateTerm);
+
+
+
+// MAIN PAGE JS
 var stateNames = [{
         "name": "Alabama",
         "abbreviation": "AL"
@@ -346,7 +364,6 @@ $(document).on('ready page:load', function(){
 
 $(document).on('ready page:load', function(){
 
-
   $("#changeDem").on("click", function(e){
     e.preventDefault();
     $("#form_id").css('display', 'block');
@@ -360,7 +377,6 @@ $(document).on('ready page:load', function(){
 })
   // Clear all bubbles
  var clearBubbles = function(){
-  debugger;
   d3.selectAll("svg.bubble > *").remove();
   $("svg.bubble").remove();
 }
@@ -370,12 +386,6 @@ var clusterBubbles = function(){
   dataset = getDataCluster();
   var diameter = 300,
   format = d3.format(",d");
-
-  // var color = ["#CFCAE6", "#3c355c", "#392F62"]
-  // d3.scale.ordinal()
-  // .domain(["a", "b", "c", "d"])
-  // .range();
-
 
   var bubble = d3.layout.pack()
   .sort(null)
@@ -447,8 +457,6 @@ function classes(root) {
     };
   }
 
-//d3.select(self.frameElement).style("height", diameter + "px");
-
 //update function
 function changebubble(root) {
   var node = svg.selectAll(".node")
@@ -481,8 +489,6 @@ function changebubble(root) {
       return d.className + ": " + d.value + "% (" + d.number + " individuals)";
     });
 
-
-    
     node.select("circle")
     .transition().duration(1000)
     .attr("r", function (d) {
@@ -523,8 +529,6 @@ node.exit()
             children: classes
           };
         }
-
-    //d3.select(self.frameElement).style("height", diameter + "px");
   }
 
   function updateBubble1() {changebubble(root);};
@@ -559,123 +563,3 @@ node.exit()
   d3.select("#click2012").on("click",updateBubble14);
   d3.select("#click2013").on("click",updateBubble15);
 };
-
-// function(geography) {
-    //   alert(geography.properties.name);
-    // }
-    //       //   datamap.svg.selectAll('.datamaps-subunit').on('click', showDeaths())
-          // },
-
-//   var width = 800, 
-//   height = 700; 
-//   var projection = d3.geo.mercator()
-//     .center([-100, 35.4])
-//     .scale(500)
-//     .translate([width / 2, height / 2]);
-
-//   // var projection = d3.geo.mercator().scale(220); 
-
-//   var path = d3.geo.path().projection(projection); 
-
-//   var svg = d3.select("#map").append("svg")
-//             .attr("width", width)
-//             .attr("height", height); 
-
-//   // var test = 0;
-//   // var countByName = d3.map();
-//   var g = svg.append("g");
-
-//    queue()
-//     .defer(d3.json, "us.json") 
-//     .await(ready);
-// function ready(error, world, locations) { 
-//   console.log(world) 
-
-//    g.selectAll(".states")
-//       .data(topojson.feature(world, world.objects.states).features)
-//     .enter().append("path")
-//       .attr("class", function(d) { 
-//         return "subunit " + d.id.toLowerCase(); })
-//       .attr("d", path);
-
-//    g.append("path") .datum(topojson.mesh(world, world.objects.states, function(a, b) { return a !== b })) 
-//       .attr("d", path) 
-//       .attr("class", "subunit-boundary"); 
-
-//       g.append("path") .datum(topojson.mesh(world, world.objects.states, function(a, b) { return a == b })) 
-//       .attr("d", path) 
-//       .attr("class", "subunit-boundary"); 
-//   };
-
-// var root = {
-// "age":"All Ages",
-// "ethnicity":"All",
-// "race":"Black",
-// "sex":"Males",
-// "state":"West",
-// "year":1999,
-// "deathInfo":[
-//   {"percent":27.3,
-//   "number":3269,
-//   "cause":"Heart Disease"},
-//   {"percent":22.1,
-//   "number":2649,
-//   "cause":"Malignant Neoplasms"},
-//   {"percent":6.2,
-//   "number":739,
-//   "cause":"Cerebrovascular"},
-//   {"percent":5.8,
-//   "number":699,
-//   "cause":"Unintentional Injury"},
-//   {"percent":4.9,
-//   "number":585,
-//   "cause":"Homicide"},
-//   {"percent":4.3,
-//   "number":512,
-//   "cause":"Chronic Low. Respiratory Disease"},
-//   {"percent":3.7,
-//   "number":442,
-//   "cause":"Diabetes Mellitus"},
-//   {"percent":2.9,
-//   "number":352,
-//   "cause":"HIV"},
-//   {"percent":1.6,
-//   "number":197,
-//   "cause":"Perinatal Period"},
-//   {"percent":1.6,
-//   "number":189,
-//   "cause":"Suicide"},
-//   {"percent":1.5,
-//   "number":179,
-//   "cause":"Liver Disease"},
-//   {"percent":1.4,
-//   "number":173,
-//   "cause":"Influenza & Pneumonia"},
-//   {"percent":1.4,
-//   "number":169,
-//   "cause":"Nephritis"},
-//   {"percent":1.3,
-//   "number":155,
-//   "cause":"Hypertension"},
-//   {"percent":0.7,
-//   "number":88,
-//   "cause":"Alzheimer's Disease"},
-//   {"percent":0.7,
-//   "number":80,
-//   "cause":"Congenital Anomalies"},
-//   {"percent":0.6,
-//   "number":67,
-//   "cause":"Aortic Aneurysm"},
-//   {"percent":0.5,
-//   "number":65,
-//   "cause":"Septicemia"},
-//   {"percent":0.5,
-//   "number":61,
-//   "cause":"Viral Hepatitis"},
-//   {"percent":0.4,
-//   "number":46},
-//   {"percent":10.6,
-//   "number":1268,
-//   "cause":"All Others"}
-//   ]
-// }

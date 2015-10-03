@@ -80,6 +80,27 @@ p {
   font-size: 18px;
 }
 
+// LANDING PAGE
+ #rotate {
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+  margin-top:25%;
+  font-size: 96px;
+  color: #D9DBE5;
+  font-weight: 700;
+  line-height:100%
+ }
+.corner{
+  text-align: right;
+  position:absolute;
+  right:0;
+  top:0;
+  margin:5px;
+
+}
+ // MAIN APP
+
+
 #blackScreen {
     position: fixed;
     top: 0;
@@ -116,6 +137,7 @@ h4{
 
 .bubble {
   stroke: #B8AA95;
+  opacity: .7;
  }
 
 #pick {

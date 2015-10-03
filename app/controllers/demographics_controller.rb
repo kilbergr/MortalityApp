@@ -24,8 +24,7 @@ class DemographicsController < ApplicationController
 			end
 		end
 		#
-		# @map = File.read("app/assets/javascripts/states.json")
-
+		
 		@data = {
 			demographics: @demographics,
 			deaths: @deaths,
@@ -35,8 +34,8 @@ class DemographicsController < ApplicationController
 		gon.demographics = @demographics
 		gon.deaths = @deaths
 		gon.figYears = @figuresYears
-		# binding.pry
-
+		
+		# As API
 		respond_to do |format|
 			format.html
 			format.json {
