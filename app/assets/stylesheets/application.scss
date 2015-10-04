@@ -91,7 +91,11 @@ p {
   font-size: 96px;
   color: #D9DBE5;
   font-weight: 700;
-  line-height:100%
+  line-height:100%;
+  top: 20%;
+  background-color:transparent;
+  position: fixed;
+  z-index: 2;
  }
 .corner{
   text-align: right;
@@ -99,9 +103,17 @@ p {
   right:0;
   top:0;
   margin:5px;
+}
 
+#allMen{
+  z-index: -1;
+  font-size: 50px;
+  top: 20%;
+  margin: 10%;
+  text-align: center;
 }
  // MAIN APP
+
 
 
 #blackScreen {
