@@ -13,13 +13,13 @@
 
 		<div id="searchForm">
 			<input type="hidden" id="q_state_eq" value="">
-			<%= f.label(:race_eq, "Race:", {:class => 'label'}) %>
-			<%= f.select(:race_eq, ['All Races', 'White', 'Black', 'Am Indian/AK Native', 'Asian/Pac Islander', 'Other Races'], {}, {:class => 'ui selection dropdown'}) %>
 			<%= f.label(:ethnicity_eq, "Hispanic Origin:", {:class => 'label'}) %>
 			<%= f.select(:ethnicity_eq, ['All', 'Non-Hispanic', 'Hispanic'], {}, {:class => 'ui selection dropdown'}) %>
-			<%= f.label(:sex_eq, "Sex:", {:class => 'label'}) %>
+			<!-- <%= f.label(:race_eq, "Race:", {:class => 'label'}) %> -->
+			<%= f.select(:race_eq, ['All Races', 'White', 'Black', 'Am Indian/AK Native', 'Asian/Pac Islander', 'Other Races'], {}, {:class => 'ui selection dropdown'}) %>
+			<!-- <%= f.label(:sex_eq, "Sex:", {:class => 'label'}) %> -->
 			<%= f.select(:sex_eq, ['Both Sexes', 'Females', 'Males'], {}, {:class => 'ui selection dropdown'}) %>
-			<%= f.label(:age_eq, "Age (Years):", {:class => 'label'}) %>
+			<!-- <%= f.label(:age_eq, "Age (Years):", {:class => 'label'}) %> -->
 			<%= f.select(:age_eq, ['All Ages', '<1', '5-9', '10-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+'], {}, {:class => 'ui selection dropdown'}) %>
 			<%= f.submit "Search", :id=> "submitMe", :class=>'ui inverted violet button'%>
 
