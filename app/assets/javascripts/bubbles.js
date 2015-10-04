@@ -257,24 +257,26 @@ var matchState = function(abbr, stateArr){
     }
   }
 };
+
+$(document).ready(function(){     
+// if you click the US map...not working yet
+  $("#usa").click(function(){
+        // var state = ;
+        $('#pick').modal('show');
+        debugger;
+        q_state_eq.value = matchState("US", stateNames);
+        });
+});
+
 // Map
 $(document).on('ready page:load', function(){
-
-  // show modal on click
-var showModal = function(state){
-  debugger;
-  modal = $(this).attr('data-modal');
-          $('#pick').modal('show');
-          q_state_eq.value = state;
-}
          
-// if you click the US map
+// if you click the US map...not working yet
   $("#usa").on("click", function(e){
     e.preventDefault();
-    alert("ALERT")
-    debugger;
         var state = matchState("US", stateNames);
-        showModal(state);
+        $('#pick').modal('show');
+          q_state_eq.value = state;
         });
   
 
@@ -284,15 +286,15 @@ var showModal = function(state){
     fills: {
       defaultFill: '#D9DBE5'
     },
-    height: 400,
-    width: 800,
     responsive: true,
     done: function(datamap) {
       // adding the modal and finding the state chosen
       datamap.svg.selectAll('.datamaps-subunit').on('click', function(){
         $("#blackScreen").css('display', 'block');
-          var state = matchState(this.classList[1], stateNames);
-          showModal(state);
+          var state = matchState(this.classList[1], stateNames);     
+          var modal = $(this).attr('data-modal');
+          $('#pick').modal('show');
+          q_state_eq.value = state;
       })
     },
     geographyConfig: {
@@ -556,7 +558,7 @@ var clusterBubbles = function(){
     return Math.round(d.r);
   })
  .style("fill", function (d) {
-    return "hsl(47,78%," + Math.round(d.r) + "%)";
+    return "hsl(45," + Math.round(d.r) + "%, 51%)";
   })
  .on("mouseover", function(d) {
               tooltip.text(d.className + ": " + d.value + "% (" + d.number + " individuals)");
@@ -612,7 +614,7 @@ function changebubble(root) {
     .append("circle")
     .attr("r", function (d) {return d.r;})
     .style("fill", function (d) {
-      return "hsl(47,78%," + Math.round(d.r) + "%)";
+      return "hsl(45," + Math.round(d.r) + "%, 51%)";
     })
     .on("mouseover", function(d) {
               tooltip.text(d.className + ": " + d.value + "% (" + d.number + " individuals)");
