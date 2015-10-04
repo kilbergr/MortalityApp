@@ -1,5 +1,5 @@
 // LANDING PAGE JS
-var terms = ["Heart disease", "Cancer", "Chronic lower respiratory diseases", "Unintentional injuries (accidents)", "Cerebrovascular diseases (stroke)", "Alzheimer's disease", "Influenza and Pneumonia", "Nephritis, nephrotic syndrome, and nephrosis", "Intentional self-harm (suicide)", "Death, Be Not Unknown" ];
+var terms = ["Heart disease", "Cancer", "Chronic lower respiratory diseases", "Unintentional injuries (accidents)", "Cerebrovascular diseases (stroke)", "Alzheimer's disease", "Diabetes", "Influenza and Pneumonia", "Nephritis, nephrotic syndrome, and nephrosis", "Intentional self-harm (suicide)", "Death, Be Not Unknown" ];
 
 function rotateTerm() {
   

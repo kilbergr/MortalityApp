@@ -62,14 +62,12 @@ p {
 // LANDING PAGE
  #rotate {
   font-family: 'Josefin Sans', sans-serif;
-  text-align: center;
-  margin-top:25%;
   font-size: 96px;
   color: #D9DBE5;
   font-weight: 700;
   line-height:100%;
-  top: 20%;
-  margin-left:25%;
+  bottom: 10%;
+  margin:10%;
   background-color:transparent;
   position: fixed;
   z-index: 2;
@@ -85,12 +83,14 @@ p {
 #allMen{
   z-index: -1;
   font-size: 50px;
-  top: 20%;
+  bottom: 2%;
+  left: 20%;
   margin: 10%;
-  text-align: center;
   color: #6F6D96;
+  position:absolute;
+  text-align: right;
 }
- 
+
  // MAIN APP
 #blackScreen {
     position: fixed;
