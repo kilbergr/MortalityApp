@@ -12,7 +12,9 @@ function rotateTerm() {
               $('#diabetes').delay(2400).fadeOut(1200, function(){
                 $('#flu').delay(2400).fadeOut(1200, function(){
                   $('#neph').delay(2400).fadeOut(1200, function(){
-                    $('#suicide').delay(2400).fadeOut(1200);
+                    $('#suicide').delay(2400).fadeOut(1200, function(){
+                      $('#enterSite').delay(4000).fadeIn(1000);
+                    })
                   })
                 })
               })
@@ -35,30 +37,6 @@ function rotateTerm() {
     } 
 }
 $(rotateTerm);
-
-// (function makeDiv(){
-   
-  
-//     $newdiv = $('<div/>').css({
-//         'width':5+'%',
-//         'height':10+'%',
-//         'background-color': '#FFF'
-//     });
-    
-//     var posx = (Math.random() * ($(document).width() - divsize)).toFixed();
-//     var posy = (Math.random() * ($(document).height() - divsize)).toFixed();
-    
-//     $newdiv.css({
-//         'position':'absolute',
-//         'left':posx+'px',
-//         'top':posy+'px',
-//         'display':'none'
-//     }).appendTo( 'body' ).fadeIn(300).delay(400).fadeOut(300, function(){
-//        $(this).remove();
-//        makeDiv(); 
-//     }); 
-// })();
-
 
 
 // MAIN PAGE JS
@@ -390,6 +368,12 @@ var formatTitle = function(state, age, sex, ethnicity, race){
     if (race == "All Races") {
       race = "All races of " 
       }
+    else if (race == "Am Indian/AK Native"){
+      race = "American Indian or Alaska Native"
+    }
+    else if (race == "Asian/Pac Islander"){
+      race = "Asian or Pacific Islander"
+    }
       demArray.push(race); 
       pushEthnicity(demArray, state, age, sex, ethnicity);
       return demArray;

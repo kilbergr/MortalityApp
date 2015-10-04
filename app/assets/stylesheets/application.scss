@@ -68,6 +68,8 @@ p {
   line-height:100%;
   bottom: 10%;
   margin:10%;
+  // left:12%;
+  text-align: center;
   background-color:transparent;
   position: fixed;
   z-index: 2;
@@ -84,11 +86,16 @@ p {
   z-index: -1;
   font-size: 50px;
   bottom: 2%;
-  left: 20%;
+  left: 15%;
   margin: 10%;
   color: #6F6D96;
   position:absolute;
   text-align: right;
+}
+
+#enterSite{
+  display:none;
+
 }
 
  // MAIN APP
