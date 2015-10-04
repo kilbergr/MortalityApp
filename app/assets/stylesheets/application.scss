@@ -67,7 +67,7 @@ p {
   font-weight: 700;
   line-height:100%;
   bottom: 10%;
-  margin:10%;
+  // margin:10%;
   // left:12%;
   text-align: center;
   background-color:transparent;
@@ -95,6 +95,8 @@ p {
 
 #enterSite{
   display:none;
+  position:absolute;
+  bottom:1%;
 
 }
 
@@ -109,6 +111,9 @@ p {
     background-color: rgba(0,0,0 , 0.7);
 }
 
+#usa{
+  font-size:48px;
+}
 h1{
   color: #D9DBE5;
   font-family: 'Josefin Sans', sans-serif;

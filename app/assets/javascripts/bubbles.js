@@ -13,7 +13,7 @@ function rotateTerm() {
                 $('#flu').delay(2400).fadeOut(1200, function(){
                   $('#neph').delay(2400).fadeOut(1200, function(){
                     $('#suicide').delay(2400).fadeOut(1200, function(){
-                      $('#enterSite').delay(4000).fadeIn(1000);
+                      $('#enterSite').delay(2400).fadeIn(1000);
                     })
                   })
                 })
@@ -244,6 +244,10 @@ var stateNames = [{
     {
         "name": "Wyoming",
         "abbreviation": "WY"
+    },
+    {
+      "name": "United States",
+      "abbreviation": "US"
     }
 ]
 var matchState = function(abbr, stateArr){
@@ -255,6 +259,24 @@ var matchState = function(abbr, stateArr){
 };
 // Map
 $(document).on('ready page:load', function(){
+
+  // show modal on click
+var showModal = function(state){
+  debugger;
+  modal = $(this).attr('data-modal');
+          $('#pick').modal('show');
+          q_state_eq.value = state;
+}
+         
+// if you click the US map
+  $("#usa").on("click", function(e){
+    e.preventDefault();
+    alert("ALERT")
+    debugger;
+        var state = matchState("US", stateNames);
+        showModal(state);
+        });
+  
 
   var map = new Datamap({
     element: document.getElementById('map'),
@@ -269,14 +291,8 @@ $(document).on('ready page:load', function(){
       // adding the modal and finding the state chosen
       datamap.svg.selectAll('.datamaps-subunit').on('click', function(){
         $("#blackScreen").css('display', 'block');
-        var state = matchState(this.classList[1], stateNames);
-        modal = $(this).attr('data-modal');
-        $('#pick').modal('show');
-        q_state_eq.value = state;
-        // $('#q_state_eq').filter(function(){
-        //     return $(this).text()==state;
-        //   })
-        // .prop('selected', true);
+          var state = matchState(this.classList[1], stateNames);
+          showModal(state);
       })
     },
     geographyConfig: {
@@ -325,8 +341,6 @@ var bundleCause = function(relFig){
    return deathData;  
  }
 
-
-   
 
 
  var getDataCluster = function(){
