@@ -609,16 +609,6 @@ function changebubble(root) {
       })
       .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
-  
-    
-    // // re-use enter selection for titles 
-    // nodeEnter
-    // .append("title")
-    // .text(function (d) {
-    //   return d.className + ": " + d.value + "% (" + d.number + " individuals)";
-    // })
-    
-
     node.select("circle")
     .transition().duration(1000)
     .attr("r", function (d) {
