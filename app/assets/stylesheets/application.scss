@@ -16,30 +16,6 @@
  */
 
 // =======================
-// ==== COLOR PALETTE ====
-// =======================
-// Palette from http://www.colourlovers.com/palette/2841387/Lace
-// agussgut
-
-// blush
-// #FFCFAD RGB 255,207,173
-
-// cream
-// #FFE4B8 RGB 255,228,184
-
-// sand
-// #E6D1B1 RGB 230,209,177
-
-// Nantucket siding
-// #B8AA95 RGB 184,170,149
-
-// Dark Chalkboard
-// #5E5A54 RGB 94,90,84
-
-
-
-
-// =======================
 // ==== DARK PALETTE ====
 // =======================
 
@@ -93,6 +69,7 @@ p {
   font-weight: 700;
   line-height:100%;
   top: 20%;
+  margin-left:25%;
   background-color:transparent;
   position: fixed;
   z-index: 2;
@@ -111,11 +88,10 @@ p {
   top: 20%;
   margin: 10%;
   text-align: center;
+  color: #6F6D96;
 }
+ 
  // MAIN APP
-
-
-
 #blackScreen {
     position: fixed;
     top: 0;

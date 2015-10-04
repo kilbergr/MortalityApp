@@ -2,14 +2,37 @@
 var terms = ["Heart disease", "Cancer", "Chronic lower respiratory diseases", "Unintentional injuries (accidents)", "Cerebrovascular diseases (stroke)", "Alzheimer's disease", "Influenza and Pneumonia", "Nephritis, nephrotic syndrome, and nephrosis", "Intentional self-harm (suicide)", "Death, Be Not Unknown" ];
 
 function rotateTerm() {
+  
+  $('#heartDisease').delay(2400).fadeOut(1200, function(){ 
+    $('#cancer').delay(2400).fadeOut(1200, function(){
+      $('#clrd').delay(2400).fadeOut(1200, function(){
+        $('#accident').delay(2400).fadeOut(1200, function(){
+          $('#stroke').delay(2400).fadeOut(1200, function(){
+            $('#alz').delay(2400).fadeOut(1200, function(){
+              $('#diabetes').delay(2400).fadeOut(1200, function(){
+                $('#flu').delay(2400).fadeOut(1200, function(){
+                  $('#neph').delay(2400).fadeOut(1200, function(){
+                    $('#suicide').delay(2400).fadeOut(1200);
+                  })
+                })
+              })
+            })
+          })
+        })
+      })
+    })
+  });
+
   var ct = $("#rotate").data("term") || 0;
+  // var count = 0;
    if (ct < terms.length-1) {
+    // fadeMen(count);
   $("#rotate").data("term", ct == terms.length -1 ? 0 : ct + 1).text(terms[ct]).fadeIn(400)
-              .delay(2000).fadeOut(1200, rotateTerm);
+              .delay(2000).fadeOut(1200, rotateTerm);     
    }
     else if (ct == terms.length-1) {
   $("#rotate").data("term", ct == terms.length -1 ? 0 : ct + 1).text(terms[ct]).fadeIn(400);
-    }
+    } 
 }
 $(rotateTerm);
 
