@@ -13,7 +13,9 @@ function rotateTerm() {
                 $('#flu').delay(2400).fadeOut(1200, function(){
                   $('#neph').delay(2400).fadeOut(1200, function(){
                     $('#suicide').delay(2400).fadeOut(1200, function(){
-                      $('#enterSite').delay(2400).fadeIn(1000);
+                      $('#others').delay(2400).fadeOut(1200, function(){
+                        $('#enterSite').fadeIn(1000);
+                      })
                     })
                   })
                 })

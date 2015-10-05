@@ -66,14 +66,14 @@ p {
   color: #D9DBE5;
   font-weight: 700;
   line-height:100%;
-  bottom: 10%;
+  bottom: 6%;
   margin:10%;
   left:10%;
   right:10%;
   text-align: center;
   background-color:transparent;
   position: fixed;
-  z-index: 2;
+   // z-index: 2;
  }
 .corner{
   text-align: right;
@@ -89,21 +89,27 @@ p {
   font-size: 42px;
   bottom: 2%;
   left: 20%;
-  margin: 10%;
+  right:20%;
+  margin-right:10%;
+  margin: 2%;
   color: #6F6D96;
   position:absolute;
   text-align: right;
+  width:600px;
 }
 
 #enterSite{
   display:none;
-  position:relative;
-  top: 10%;
-  margin:10%;
-  left:20%;
+  position:absolute;
+  bottom: 2%;
+  // padding:5%;
+  margin-left:10%;
+  margin-right:10%;
+  left:18%;
   right:20%;
   font-size: 24px;
   color: #D9DBE5;
+  width:575px;
 }
 
  // MAIN APP
