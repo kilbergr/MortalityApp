@@ -15,6 +15,7 @@ Using the app is easy. Just select a state and enter characteristics of interest
 ![](https://github.com/kilbergr/MortalityApp/blob/master/readmeImg/nyMal.png?raw=true =500x)
 
 The app is currently deployed on heroku. [Visit it here](https://death-be-not-unknown.herokuapp.com). 
+
 The title of the app is a reference to the classic sonnet Death, Be Not Proud ([read the poem here](http://www.poetryfoundation.org/poem/173363)).
 
 Please note, this app is in no way meant to serve as a death prediction tool.
