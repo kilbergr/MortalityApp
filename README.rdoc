@@ -1,28 +1,19 @@
-== README
+####Death, Be Not Unknown
+![](https://github.com/kilbergr/MortalityApp/blob/master/readmeImg/explain.png?raw=true =500x)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+It's impossible to predict how we will meet our ends. But there is certainly plenty to speculate on.
 
-Things you may want to cover:
+*Death, Be Not Unknown* provides access to American mortality statistics from the Center for Disease Control and Prevention (CDC).
 
-* Ruby version
+Because of the restrictions surrounding publicly available mortality data, only the top twenty causes were included in the app's database. All data was laboriously retrieved from the CDC's [WISQARS database](http://www.cdc.gov/injury/wisqars/index.html), about which you can find more information here. If you'd like to see more in-depth stats, visit the CDC's [WONDER database](http://wonder.cdc.gov/), which includes county-level data.
 
-* System dependencies
+Using the app is easy. Just select a state and enter characteristics of interest (race, ethnicity, sex, and age as defined by the CDC). Hover over the resulting bubbles to view cause of death, that causes's corresponding percentage of total deaths, and the number of people within that group who died from that cause.
+![](https://github.com/kilbergr/MortalityApp/blob/master/readmeImg/cal.png?raw=true =500x)
 
-* Configuration
+![](https://github.com/kilbergr/MortalityApp/blob/master/readmeImg/calFem2.png?raw=true =500x)
 
-* Database creation
+![](https://github.com/kilbergr/MortalityApp/blob/master/readmeImg/nyMal.png?raw=true =500x)
 
-* Database initialization
+The title of the app is a reference to the classic sonnet Death, Be Not Proud ([read the poem here](http://www.poetryfoundation.org/poem/173363)).
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Please note, this app is in no way meant to serve as a death prediction tool.
