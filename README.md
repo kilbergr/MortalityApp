@@ -3,7 +3,7 @@
 
 It's impossible to predict how we will meet our ends. But there is certainly plenty to speculate on.
 
-*Death, Be Not Unknown* provides access to American mortality statistics from the Center for Disease Control and Prevention (CDC).
+*Death, Be Not Unknown* provides access to American mortality statistics from the Center for Disease Control and Prevention (CDC). 
 
 Because of the restrictions surrounding publicly available mortality data, only the top twenty causes were included in the app's database. All data was laboriously retrieved from the CDC's [WISQARS database](http://www.cdc.gov/injury/wisqars/index.html), about which you can find more information here. If you'd like to see more in-depth stats, visit the CDC's [WONDER database](http://wonder.cdc.gov/), which includes county-level data.
 
@@ -14,6 +14,7 @@ Using the app is easy. Just select a state and enter characteristics of interest
 
 ![](https://github.com/kilbergr/MortalityApp/blob/master/readmeImg/nyMal.png?raw=true =500x)
 
+The app is currently deployed on heroku. [Visit it here](https://death-be-not-unknown.herokuapp.com). 
 The title of the app is a reference to the classic sonnet Death, Be Not Proud ([read the poem here](http://www.poetryfoundation.org/poem/173363)).
 
 Please note, this app is in no way meant to serve as a death prediction tool.
